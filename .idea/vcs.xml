@@ -2,15 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Uni Praktika/Semester 2/LB/LB_REFERAT/lb-referat" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Uni Praktika/Semester 2/LB/Praktikum2/Java" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Uni Praktika/Semester 2/PT2" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Uni Praktika/Semester 2/PT2/Aufgabe05" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Uni Praktika/Semester 2/PT2/Aufgabe06git" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Uni Praktika/Semester 2/PT2/aufgabe04" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Uni Praktika/Semester 2/PT2/complex-numbers" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Uni Praktika/Semester 2/PT2/lb-aufgabe02" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Uni Praktika/Semester 2/PT2/pm04Git" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/main/src/sample/weblocker" vcs="Git" />
   </component>
 </project>
