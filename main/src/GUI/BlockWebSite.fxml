@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.BlockWebSiteController">
@@ -15,13 +17,21 @@
                   <Font name="Nirmala UI" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="27.0" layoutY="74.0" prefHeight="129.0" prefWidth="597.0" text="If you want to block the website immediately use the immediately option. &#10;Use the manuell option if you want to block the website weekly. &#10;If you use the manuell option the website will be blocked if your average&#10;weekly usage is greater then your manuell input. ">
+            <Label layoutX="27.0" layoutY="74.0" prefHeight="129.0" prefWidth="597.0" text="If you want to block the website immediately use the immediately option. &#10;Use the manuelly option if you want to block the website weekly. &#10;If you use the manuelly option the website will be blocked if your average&#10;weekly usage is greater then your manuell input. ">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <VBox layoutX="-1.0" layoutY="226.0" prefHeight="225.0" prefWidth="650.0" />
+      <Pane layoutX="1.0" layoutY="219.0" prefHeight="225.0" prefWidth="650.0">
+         <children>
+            <CheckBox layoutX="108.0" layoutY="24.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" text="Immediatly" textAlignment="CENTER" />
+            <Label layoutX="429.0" layoutY="24.0" prefHeight="27.0" prefWidth="107.0" text="Manuelly" />
+            <TextField layoutX="40.0" layoutY="84.0" prefHeight="41.0" prefWidth="549.0" promptText="Website URL" />
+            <Button layoutX="261.0" layoutY="160.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="107.0" text="Submit" />
+            <TextField layoutX="360.0" layoutY="22.0" prefHeight="27.0" prefWidth="59.0" promptText="Hours" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
