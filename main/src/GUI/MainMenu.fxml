@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainMenuController">
+   <children>
+      <VBox prefHeight="450.0" prefWidth="149.0">
+         <children>
+            <ButtonBar prefHeight="112.0" prefWidth="149.0">
+               <buttons>
+                <Button fx:id="websiteUsageButton" mnemonicParsing="false" prefHeight="112.0" prefWidth="146.0" text="Website&#10; usage">
+                     <font>
+                        <Font name="Nirmala UI" size="18.0" />
+                     </font>
+                  </Button>
+               </buttons>
+            </ButtonBar>
+            <ButtonBar prefHeight="112.0" prefWidth="149.0">
+               <buttons>
+                <Button fx:id="blockWebsiteButton" minWidth="0.0" mnemonicParsing="false" prefHeight="130.0" prefWidth="138.0" text="Block &#10;website">
+                     <font>
+                        <Font name="Nirmala UI" size="18.0" />
+                     </font>
+                  </Button>
+               </buttons>
+            </ButtonBar>
+            <ButtonBar prefHeight="112.0" prefWidth="149.0">
+               <buttons>
+                <Button fx:id="blockedAndUnblock" mnemonicParsing="false" prefHeight="130.0" prefWidth="139.0" text="Blocked&#10;&amp; unblock">
+                     <font>
+                        <Font name="Nirmala UI" size="18.0" />
+                     </font>
+                  </Button>
+               </buttons>
+            </ButtonBar>
+            <ButtonBar prefHeight="112.0" prefWidth="136.0">
+               <buttons>
+                <Button fx:id="kontakt" mnemonicParsing="false" prefHeight="164.0" prefWidth="139.0" text="Kontakt">
+                     <font>
+                        <Font name="Nirmala UI" size="18.0" />
+                     </font>
+                  </Button>
+               </buttons>
+            </ButtonBar>
+         </children>
+      </VBox>
+      <Pane layoutX="149.0" prefHeight="450.0" prefWidth="499.0">
+         <children>
+            <PieChart layoutX="96.0" layoutY="100.0" prefHeight="169.0" prefWidth="307.0" />
+            <Label layoutX="97.0" layoutY="28.0" prefHeight="44.0" prefWidth="284.0" text="Top used websites:">
+               <font>
+                  <Font name="Nirmala UI" size="18.0" />
+               </font>
+            </Label>
+            <ScrollPane layoutX="38.0" layoutY="306.0" prefHeight="130.0" prefWidth="402.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
