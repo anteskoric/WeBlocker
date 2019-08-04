@@ -16,7 +16,7 @@
          <children>
             <ButtonBar prefHeight="112.0" prefWidth="149.0">
                <buttons>
-                <Button fx:id="websiteUsageButton" mnemonicParsing="false" prefHeight="112.0" prefWidth="146.0" text="Website&#10; usage">
+                <Button fx:id="websiteUsage" mnemonicParsing="false" onAction="#onActionWebsiteUsage" prefHeight="112.0" prefWidth="146.0" text="Website&#10; usage">
                      <font>
                         <Font name="Nirmala UI" size="18.0" />
                      </font>
@@ -25,7 +25,7 @@
             </ButtonBar>
             <ButtonBar prefHeight="112.0" prefWidth="149.0">
                <buttons>
-                <Button fx:id="blockWebsiteButton" minWidth="0.0" mnemonicParsing="false" prefHeight="130.0" prefWidth="138.0" text="Block &#10;website">
+                <Button fx:id="blockWebsite" minWidth="0.0" mnemonicParsing="false" onAction="#onActionBlockWebsite" prefHeight="130.0" prefWidth="138.0" text="Block &#10;website">
                      <font>
                         <Font name="Nirmala UI" size="18.0" />
                      </font>
@@ -34,7 +34,7 @@
             </ButtonBar>
             <ButtonBar prefHeight="112.0" prefWidth="149.0">
                <buttons>
-                <Button fx:id="blockedAndUnblock" mnemonicParsing="false" prefHeight="130.0" prefWidth="139.0" text="Blocked&#10;&amp; unblock">
+                <Button fx:id="blockedAndUnblock" mnemonicParsing="false" onAction="#onActionBlockedAndUnblock" prefHeight="130.0" prefWidth="139.0" text="Blocked&#10;&amp; unblock">
                      <font>
                         <Font name="Nirmala UI" size="18.0" />
                      </font>
@@ -43,7 +43,7 @@
             </ButtonBar>
             <ButtonBar prefHeight="112.0" prefWidth="136.0">
                <buttons>
-                <Button fx:id="kontakt" mnemonicParsing="false" prefHeight="164.0" prefWidth="139.0" text="Kontakt">
+                <Button fx:id="contact" mnemonicParsing="false" onAction="#onActionContact" prefHeight="164.0" prefWidth="139.0" text="Contact">
                      <font>
                         <Font name="Nirmala UI" size="18.0" />
                      </font>
