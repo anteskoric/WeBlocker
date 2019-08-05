@@ -1,4 +1,4 @@
-Sommer project 2019
+Summer project 2019
 
 Author: Ante Skoric
 
