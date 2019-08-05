@@ -27,11 +27,12 @@ package Exceptions;
  *
  * @author Ante Skoric
  */
-public class URLAlreadyExistingException extends RuntimeException{
-    public URLAlreadyExistingException(){
+public class URLAlreadyExistingException extends RuntimeException {
+    public URLAlreadyExistingException() {
         super();
     }
-    public URLAlreadyExistingException(String message){
+
+    public URLAlreadyExistingException(String message) {
         super(message);
     }
 }

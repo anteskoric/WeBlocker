@@ -24,6 +24,7 @@ package Controller;
 
 /**
  * BlockWebSiteController is a class for controlling the GUI BlockWebSite.fxml.
+ *
  * @author Ante Skoric
  */
 public class BlockWebSiteController {

@@ -37,6 +37,7 @@ import java.util.ResourceBundle;
 
 /**
  * MainMenuController is a class for controlling the GUI MainMenu.fxml
+ *
  * @author Ante Skoric
  */
 public class MainMenuController implements Initializable {
@@ -53,21 +54,22 @@ public class MainMenuController implements Initializable {
     @FXML
     private Button contact;
 
-    public void onActionWebsiteUsage(){
+    public void onActionWebsiteUsage() {
         changeStage("/GUI/WebsiteUsage.fxml");
     }
 
-    public void onActionBlockWebsite(){
+    public void onActionBlockWebsite() {
         changeStage("/GUI/BlockWebSite.fxml");
     }
 
-    public void onActionBlockedAndUnblock(){
+    public void onActionBlockedAndUnblock() {
         changeStage("/GUI/BlockedAndUnblock.fxml");
     }
 
-    public void onActionContact(){
+    public void onActionContact() {
         changeStage("/GUI/Contact.fxml");
     }
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -81,7 +83,7 @@ public class MainMenuController implements Initializable {
 
     }
 
-    private void changeStage(String path){
+    private void changeStage(String path) {
         try {
             //TODO Delete commented code
             //Stage currentStage = (Stage) this.websiteUsage.getScene().getWindow();
@@ -91,7 +93,7 @@ public class MainMenuController implements Initializable {
             blockWebSiteStage.initModality(Modality.APPLICATION_MODAL);
             blockWebSiteStage.setScene(new Scene(root));
             blockWebSiteStage.show();
-        }catch (IOException a){
+        } catch (IOException a) {
             //TODO make into loggs
             System.err.println(a);
         }
