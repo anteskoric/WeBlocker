@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WebsiteUsageController">
+   <children>
+      <VBox prefHeight="450.0" prefWidth="149.0" AnchorPane.rightAnchor="501.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ButtonBar prefHeight="150.0" prefWidth="149.0">
+               <buttons>
+                  <Button fx:id="weekly" mnemonicParsing="false" prefHeight="150.0" prefWidth="146.0" text="Weekly&#10;">
+                     <font>
+                        <Font name="Nirmala UI" size="18.0" />
+                     </font>
+                  </Button>
+               </buttons>
+            </ButtonBar>
+            <ButtonBar prefHeight="150.0" prefWidth="149.0">
+               <buttons>
+                  <Button fx:id="monthly" mnemonicParsing="false" prefHeight="150.0" prefWidth="139.0" text="Monthly">
+                     <font>
+                        <Font name="Nirmala UI" size="18.0" />
+                     </font>
+                  </Button>
+               </buttons>
+            </ButtonBar>
+            <ButtonBar prefHeight="150.0" prefWidth="136.0">
+               <buttons>
+                  <Button fx:id="yearly" mnemonicParsing="false" prefHeight="150.0" prefWidth="139.0" text="Yearly">
+                     <font>
+                        <Font name="Nirmala UI" size="18.0" />
+                     </font>
+                  </Button>
+               </buttons>
+            </ButtonBar>
+         </children>
+      </VBox>
+      <Pane layoutX="148.0" layoutY="-1.0" prefHeight="450.0" prefWidth="502.0">
+         <children>
+            <Label layoutX="19.0" layoutY="14.0" prefHeight="42.0" prefWidth="196.0">
+               <font>
+                  <Font name="Nirmala UI" size="15.0" />
+               </font></Label>
+            <ListView layoutX="19.0" layoutY="67.0" prefHeight="360.0" prefWidth="465.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

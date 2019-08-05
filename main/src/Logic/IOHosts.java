@@ -55,6 +55,7 @@ public final class IOHosts {
      * @throws URLAlreadyExistingException if the website is already blocked
      */
 
+    //TODO make this method better www.reddit.com does not work
     public static void blockSite(String url) {
         String hostName = null;
         try {
