@@ -26,6 +26,7 @@ import Exceptions.URLAlreadyExistingException;
 
 import java.io.*;
 import java.net.MalformedURLException;
+import java.net.StandardProtocolFamily;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -55,13 +56,30 @@ public final class IOHosts {
      * @throws URLAlreadyExistingException if the website is already blocked
      */
 
-    //TODO make this method better www.reddit.com does not work
     public static void blockSite(String url) {
         String hostName = null;
         try {
-            hostName = new URL(url).getHost();
-        } catch (IOException a) {
-            //TODO change this into popup
+            String wwwPattern = "^www\\..+\\.com$";
+            String protocolPattern = "^https://www\\..+\\.com.+";
+            if(url.matches(wwwPattern)) {
+                hostName = new URL("https://" + url).getHost().substring(4);
+            }else if(url.matches(protocolPattern)){
+                    hostName = new URL(url).getHost().substring(4);
+            }else{
+                //TODO popup
+                throw new IllegalArgumentException("Please use URL of the website");
+            }
+        }catch (IOException a){
+            //TODO logs
+            System.err.println(a);
+        }
+        writeIntoHost(hostName);
+    }
+
+    private static void writeIntoHost(String hostName) {
+        if(hostName == null){
+            //TODO make into logs
+            throw new NullPointerException();
         }
 
         if (checkIfInTheFile(hostName)) {

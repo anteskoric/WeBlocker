@@ -116,8 +116,10 @@ public class BlockWebSiteController implements Initializable {
             throw new ElementsCollisionException("You can only block a website manually or immediately");
         if(this.immediatelyCheckBox.isSelected() && manuallyFieldContainsCharacters() && urlFieldContainsCharacters())
             throw new ElementsCollisionException("You can only block a website manually or immediately");
-        if(!(urlFieldContainsCharacters()) && !manuallyFieldContainsCharacters() && !urlFieldContainsCharacters())
+        if(!(this.immediatelyCheckBox.isSelected()) && !manuallyFieldContainsCharacters() && !urlFieldContainsCharacters())
             throw new ElementsNotSelectedException("You need to select manuel or immediate button and type URL of the website you want to block");
+        if(urlFieldContainsCharacters() && !(this.immediatelyCheckBox.isSelected()) && !(manuallyFieldContainsCharacters()))
+            throw new ElementsNotSelectedException("You need to use manuel or immediate button to block the website");
     }
 
     private boolean urlFieldContainsCharacters(){

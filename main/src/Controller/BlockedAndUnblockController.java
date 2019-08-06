@@ -27,5 +27,5 @@ package Controller;
  * @author Ante Skoric
  */
 
-public class BlockedAndUnblockController {
+public class BlockedAndUnblockController{
 }
