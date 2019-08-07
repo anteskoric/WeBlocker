@@ -4,6 +4,6 @@ module JavaFxApplication {
     requires javafx.graphics;
     requires java.base;
 
-    opens Controller;
-    opens Logic;
+    opens controller;
+    opens logic;
 }

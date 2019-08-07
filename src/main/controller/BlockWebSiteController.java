@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 // The MIT License
 //
@@ -22,10 +22,10 @@ package Controller;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Exceptions.ElementsNotSelectedException;
-import Exceptions.TextFieldDoesNotContainCharactersException;
-import Exceptions.ElementsCollisionException;
-import Logic.IOHosts;
+import exceptions.ElementsNotSelectedException;
+import exceptions.TextFieldDoesNotContainCharactersException;
+import exceptions.ElementsCollisionException;
+import logic.IOHosts;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -38,28 +38,49 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * BlockWebSiteController is a class for controlling the GUI BlockWebSite.fxml.
+ * BlockWebSiteController is a class for controlling the fxml BlockWebSite.fxml.
  *
  * @author Ante Skoric
  */
 public class BlockWebSiteController implements Initializable {
 
+    /**
+     * CheckBox for immediate website blockage
+     */
     @FXML
     private CheckBox immediatelyCheckBox;
 
+    /**
+     * TextField for Manually website blockage
+     * The inputs is Integer that represents hours
+     */
     @FXML
     private TextField manuallyField;
 
+    /**
+     * TextField for the website that should be blocked
+     */
     @FXML
     private TextField urlField;
 
+    /**
+     * Submit button
+     */
     @FXML
     private Button submit;
 
+    /**
+     * Getter for the context of the urlField
+     * @return Context (text) of the urlField
+     */
     private String getTextUrlField() {
         return this.urlField.getText();
     }
 
+    /**
+     * Getter for the context of the manuallyField
+     * @return Context (text) of the manuellyField
+     */
     private String getTextManuallyField(){
         return this.manuallyField.getText();
     }
@@ -75,7 +96,7 @@ public class BlockWebSiteController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         /**
-         * Force the field to be numeric only
+         * Force the manuallyField to be numeric only
          * Source: https://stackoverflow.com/questions/7555564/what-is-the-recommended-way-to-make-a-numeric-textfield-in-javafx
          */
         this.manuallyField.textProperty().addListener(new ChangeListener<>() {
@@ -89,6 +110,10 @@ public class BlockWebSiteController implements Initializable {
         });
     }
 
+    /**
+     * The method will be called if the user clicks on the button submit
+     */
+    @FXML
     public void onActionSubmit(){
      verifySubmitClick();
      if(this.immediatelyCheckBox.isSelected())
@@ -97,10 +122,14 @@ public class BlockWebSiteController implements Initializable {
          blockWebSiteManually();
     }
 
+    /**
+     * BLocks the website immediately
+     */
     private void blockWebSiteImmediately() {
         IOHosts.blockSite(getTextUrlField());
     }
 
+    //TODO write this method
     private void blockWebSiteManually(){
 
     }
@@ -122,9 +151,18 @@ public class BlockWebSiteController implements Initializable {
             throw new ElementsNotSelectedException("You need to use manuel or immediate button to block the website");
     }
 
+    /**
+     * Check if the urlField contains characters
+     * @return boolean true if the urlField contains characters else false
+     */
     private boolean urlFieldContainsCharacters(){
         return !(this.urlField.getText() == null || this.urlField.getText().trim().isEmpty());
     }
+
+    /**
+     * Check if the manuallyField contains characters
+     * @return boolean true if the manuallyField contains characters else false
+     */
     private boolean manuallyFieldContainsCharacters(){
         return !(this.manuallyField.getText() == null || this.manuallyField.getText().trim().isEmpty());
     }

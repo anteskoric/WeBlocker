@@ -1,4 +1,4 @@
-package Logic;
+package logic;
 // The MIT License
 //
 //Copyright (c) 2010-2019 Google, Inc. http://angularjs.org
@@ -21,7 +21,6 @@ package Logic;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Controller.MainMenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,12 +28,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * Executes the source code of the app
+ * Executes the source code of the application
  *
  * @author Ante Skoric
  */
 
-//TODO change names of the packages (small letters)
 public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
@@ -57,7 +55,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/GUI/MainMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
 
         primaryStage.setScene(new Scene(root));
         primaryStage.setTitle("WeBlocker");

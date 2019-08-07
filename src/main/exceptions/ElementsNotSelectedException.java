@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 // The MIT License
 //
@@ -24,16 +24,15 @@ package Exceptions;
 
 
 /**
- * The ElementsCollisionException is a exception that will be thrown, if two or more elements are used that should not interact with each other.
+ * The ElementsNotSelectedException is a exception that will be thrown, if javafx element is not selected.
  *
  * @author Ante Skoric
  */
-
-public class ElementsCollisionException extends RuntimeException {
-    public ElementsCollisionException(){
+public class ElementsNotSelectedException extends RuntimeException {
+    public ElementsNotSelectedException(){
         super();
     }
-    public ElementsCollisionException(String message){
-        super(message);
+    public ElementsNotSelectedException(String message) {
+    super(message);
     }
 }

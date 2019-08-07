@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 // The MIT License
 //
@@ -36,38 +36,66 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * MainMenuController is a class for controlling the GUI MainMenu.fxml
+ * MainMenuController is a class for controlling the fxml MainMenu.fxml
  *
  * @author Ante Skoric
  */
 public class MainMenuController implements Initializable {
 
+    /**
+     * The websiteUsage button
+     */
     @FXML
     private Button websiteUsage;
 
+    /**
+     * The blockWebsite button
+     */
     @FXML
     private Button blockWebsite;
 
+    /**
+     * The blockedAndUnblock button
+     */
     @FXML
     private Button blockedAndUnblock;
 
+    /**
+     * The contact button
+     */
     @FXML
     private Button contact;
 
+    /**
+     * The method will be called when the button WebsiteUsage is clicked
+     */
+    @FXML
     public void onActionWebsiteUsage() {
-        changeStage("/GUI/WebsiteUsage.fxml");
+        changeStage("/fxml/WebsiteUsage.fxml");
     }
 
+    /**
+     * The method will be called when the button BlockWebsite is clicked
+     */
+    @FXML
     public void onActionBlockWebsite() {
-        changeStage("/GUI/BlockWebSite.fxml");
+        changeStage("/fxml/BlockWebSite.fxml");
     }
 
+    /**
+     * The method will be called when the button BlockedAndUnblock is clicked
+     */
+    @FXML
     public void onActionBlockedAndUnblock() {
-        changeStage("/GUI/BlockedAndUnblock.fxml");
+        changeStage("/fxml/BlockedAndUnblock.fxml");
     }
 
+    /**
+     * The method will be called when the button Contact is clicked
+     */
+    @FXML
     public void onActionContact() {
-        changeStage("/GUI/Contact.fxml");
+        changeStage("/fxml/Contact.fxml");
     }
 
     /**
@@ -83,11 +111,15 @@ public class MainMenuController implements Initializable {
 
     }
 
+    /**
+     * The method changeStage creates new Stage from the given fxml file
+     * @param path Path of fxml file
+     */
     private void changeStage(String path) {
         try {
             //TODO Delete commented code
             //Stage currentStage = (Stage) this.websiteUsage.getScene().getWindow();
-            //currentStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/GUI/BlockWebSite.fxml"))));
+            //currentStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/fxml/BlockWebSite.fxml"))));
             Stage blockWebSiteStage = new Stage();
             Pane root = FXMLLoader.load(getClass().getResource(path));
             blockWebSiteStage.initModality(Modality.APPLICATION_MODAL);

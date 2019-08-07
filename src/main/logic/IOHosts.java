@@ -1,4 +1,4 @@
-package Logic;
+package logic;
 // The MIT License
 //
 //Copyright (c) 2010-2019 Google, Inc. http://angularjs.org
@@ -22,11 +22,10 @@ package Logic;
 // THE SOFTWARE.
 
 
-import Exceptions.URLAlreadyExistingException;
+import exceptions.URLAlreadyExistingException;
 
 import java.io.*;
 import java.net.MalformedURLException;
-import java.net.StandardProtocolFamily;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -35,7 +34,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * The class Logic.IOHosts is used for blocking websites from the browser
+ * The class logic.IOHosts is used for blocking websites from the browser
  *
  * @author Ante Skoric
  */
@@ -46,14 +45,16 @@ public final class IOHosts {
      */
     private final static String HOSTS_FILE = "C:\\Windows\\System32\\drivers\\etc\\hosts";
 
+    /**
+     * The constructor is private because it is utility class
+     */
     private IOHosts() {
     }
 
     /**
-     * Blocks website, the url of the website will be written into the file hosts
-     *
-     * @param url URL of the website that the user wants to block
-     * @throws URLAlreadyExistingException if the website is already blocked
+     * The method blockSite is used for blocking access to websites
+     * @param url url of the website for example www.example.com or https//:www.example.com/
+     * @throws IllegalArgumentException if user does not input url of a website
      */
 
     public static void blockSite(String url) {
@@ -66,7 +67,7 @@ public final class IOHosts {
             }else if(url.matches(protocolPattern)){
                     hostName = new URL(url).getHost().substring(4);
             }else{
-                //TODO popup
+                //TODO popup or into logs
                 throw new IllegalArgumentException("Please use URL of the website");
             }
         }catch (IOException a){
@@ -76,33 +77,14 @@ public final class IOHosts {
         writeIntoHost(hostName);
     }
 
-    private static void writeIntoHost(String hostName) {
-        if(hostName == null){
-            //TODO make into logs
-            throw new NullPointerException();
-        }
-
-        if (checkIfInTheFile(hostName)) {
-            //TODO abort with popup
-            throw new URLAlreadyExistingException("The URL is already blocked");
-        }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(HOSTS_FILE, true))) {
-            writer.newLine();
-            writer.write("127.0.0.1 " + "www." + hostName + " " + hostName);
-            writer.flush();
-        } catch (IOException a) {
-            //TODO change this into logs
-            System.err.println(a);
-        }
-    }
-
     /**
      * Unblocks website that has been blocked
      *
      * @param url URL of the website
+     * @param tempFilePath the temporal file that will be used for storing text
      * @throws IllegalArgumentException if the website is not blocked
      */
+
     public static void unblockSite(String url, String tempFilePath) {
         String hostName = null;
         try {
@@ -113,7 +95,7 @@ public final class IOHosts {
         }
 
         if (!checkIfInTheFile(hostName))
-            //TODO change this into logs
+            //TODO change this into logs or popup
             throw new IllegalArgumentException("The website is not blocked");
 
         saveInTempFile(tempFilePath, hostName);
@@ -131,7 +113,7 @@ public final class IOHosts {
                     .parallel()
                     .filter(x -> x.matches("^127.0.0.1\\s+www..+"))
                     .map(x -> x.split("\\s+"))
-                    .map(x -> x[2])
+                    .map(x -> x[1])
                     .collect(Collectors.toList());
         } catch (IOException a) {
             //TODO change into logs
@@ -176,8 +158,8 @@ public final class IOHosts {
      * Save content from hosts file into temp file
      * without line that contains the host machine(hostName) that we want to block
      *
-     * @param tempFilePath path of the temp file
-     * @param hostName     host machine of the website we want to block
+     * @param tempFilePath Path of the temp file
+     * @param hostName     Host machine of the website we want to block
      */
     private static void saveInTempFile(String tempFilePath, String hostName) {
         File tempFile = new File(tempFilePath);
@@ -212,6 +194,34 @@ public final class IOHosts {
             writer.flush();
         } catch (IOException a) {
             //TODO change into logs
+            System.err.println(a);
+        }
+    }
+
+    /**
+     * The method writeIntoHosts writes String into hosts file
+     * @param hostName String to be writen into file
+     * @throws NullPointerException If the input is null the exception will be thrown
+     * @throws URLAlreadyExistingException If the String is already written into the file the exception will be thrown
+     */
+
+    private static void writeIntoHost(String hostName) {
+        if(hostName == null){
+            //TODO make into logs
+            throw new NullPointerException();
+        }
+
+        if (checkIfInTheFile(hostName)) {
+            //TODO make into popup or into logs
+            throw new URLAlreadyExistingException("The URL is already blocked");
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(HOSTS_FILE, true))) {
+            writer.newLine();
+            writer.write("127.0.0.1 " + "www." + hostName + " " + hostName);
+            writer.flush();
+        } catch (IOException a) {
+            //TODO change this into logs
             System.err.println(a);
         }
     }

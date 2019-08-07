@@ -1,5 +1,3 @@
-package Controller;
-
 // The MIT License
 //
 //Copyright (c) 2010-2019 Google, Inc. http://angularjs.org
@@ -22,12 +20,18 @@ package Controller;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+package exceptions;
+
 /**
- * WebsiteUsageController is a class for controlling the GUI WebsiteUsage.fxml
+ * The URLAlreadyExistingException is a exception that will be thrown, if a url is already used
  *
  * @author Ante Skoric
  */
-
-public class WebsiteUsageController {
-
+public class URLAlreadyExistingException extends RuntimeException {
+    public URLAlreadyExistingException() {
+        super();
+    }
+    public URLAlreadyExistingException(String message) {
+        super(message);
+    }
 }

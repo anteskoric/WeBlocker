@@ -1,4 +1,5 @@
-package Controller;
+package controller;
+
 // The MIT License
 //
 //Copyright (c) 2010-2019 Google, Inc. http://angularjs.org
@@ -21,11 +22,30 @@ package Controller;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
 /**
- * BlockAndUnblockController is a class for controlling the GUI BlockedAndUnblock.fxml.
+ * ContactController is a class for controlling the fxml Contact.fxml.
  *
  * @author Ante Skoric
  */
 
-public class BlockedAndUnblockController{
+public class ContactController implements Initializable {
+    //TODO is Initializable needed?
+    /**
+     * Called to initialize a controller after its root element has been
+     * completely processed.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  {@code null} if the location is not known.
+     * @param resources The resources used to localize the root object, or {@code null} if
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+    }
 }

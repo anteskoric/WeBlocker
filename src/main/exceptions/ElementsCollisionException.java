@@ -1,4 +1,4 @@
-package Controller;
+package exceptions;
 
 // The MIT License
 //
@@ -22,11 +22,19 @@ package Controller;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+
 /**
- * ContactController is a class for controlling the GUI Contact.fxml.
+ * The ElementsCollisionException is a exception that will be thrown,
+ * if two or more elements are used that should not interact with each other.
  *
  * @author Ante Skoric
  */
 
-public class ContactController {
+public class ElementsCollisionException extends RuntimeException {
+    public ElementsCollisionException(){
+        super();
+    }
+    public ElementsCollisionException(String message){
+        super(message);
+    }
 }

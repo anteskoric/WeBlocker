@@ -1,3 +1,5 @@
+package exceptions;
+
 // The MIT License
 //
 //Copyright (c) 2010-2019 Google, Inc. http://angularjs.org
@@ -20,19 +22,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-package Exceptions;
 
 /**
- * The URLAlreadyExistingException is a exception that will be thrown, if a url is already used
+ * The TextFieldDoesNotContainCharactersException is a exception that will be thrown, if text fiel does not contain characters.
  *
  * @author Ante Skoric
  */
-public class URLAlreadyExistingException extends RuntimeException {
-    public URLAlreadyExistingException() {
+
+public class TextFieldDoesNotContainCharactersException extends RuntimeException{
+    public TextFieldDoesNotContainCharactersException(){
         super();
     }
-
-    public URLAlreadyExistingException(String message) {
+    public TextFieldDoesNotContainCharactersException(String message){
         super(message);
     }
 }

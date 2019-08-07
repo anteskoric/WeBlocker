@@ -1,4 +1,4 @@
-package Exceptions;
+package controller;
 
 // The MIT License
 //
@@ -22,17 +22,12 @@ package Exceptions;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-
 /**
- * The ElementsNotSelectedException is a exception that will be thrown, if javafx element is not selected.
+ * WebsiteUsageController is a class for controlling the fxml WebsiteUsage.fxml
  *
  * @author Ante Skoric
  */
-public class ElementsNotSelectedException extends RuntimeException {
-    public ElementsNotSelectedException(){
-        super();
-    }
-    public ElementsNotSelectedException(String message) {
-    super(message);
-    }
+
+public class WebsiteUsageController {
+
 }
