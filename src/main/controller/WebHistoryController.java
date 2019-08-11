@@ -22,12 +22,44 @@ package controller;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
 /**
- * WebsiteUsageController is a class for controlling the fxml WebsiteUsage.fxml
+ * WebHistoryController is a class for controlling the fxml WebHistory.fxml
  *
  * @author Ante Skoric
  */
 
-public class WebsiteUsageController {
+public class WebHistoryController implements Initializable {
 
+    /**
+     * The elementsView is ListView with search terms or search history in it
+     */
+    @FXML
+    private ListView elementsView;
+
+    /**
+     * Is the label that describes the elementsView
+     */
+    @FXML
+    private Label titleLabel;
+
+    /**
+     * Called to initialize a controller after its root element has been
+     * completely processed.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  {@code null} if the location is not known.
+     * @param resources The resources used to localize the root object, or {@code null} if
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 }

@@ -46,7 +46,7 @@ public class MainMenuController implements Initializable {
      * The websiteUsage button
      */
     @FXML
-    private Button websiteUsage;
+    private Button websiteHistory;
 
     /**
      * The blockWebsite button
@@ -61,6 +61,12 @@ public class MainMenuController implements Initializable {
     private Button blockedAndUnblock;
 
     /**
+     * The cookies button
+     */
+    @FXML
+    private Button cookies;
+
+    /**
      * The contact button
      */
     @FXML
@@ -70,8 +76,8 @@ public class MainMenuController implements Initializable {
      * The method will be called when the button WebsiteUsage is clicked
      */
     @FXML
-    public void onActionWebsiteUsage() {
-        changeStage("/fxml/WebsiteUsage.fxml","Website Usage");
+    public void onActionWebsiteHistory() {
+        changeStage("/fxml/WebHistory.fxml","Web history");
     }
 
     /**
@@ -90,6 +96,10 @@ public class MainMenuController implements Initializable {
         changeStage("/fxml/BlockedAndUnblock.fxml","Blocked And Unblocked");
     }
 
+    @FXML
+    public void onActionCookies(){
+        changeStage("/fxml/Cookies.fxml","Cookies");
+    }
     /**
      * The method will be called when the button Contact is clicked
      */

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WebHistoryController">
+   <children>
+      <VBox prefHeight="450.0" prefWidth="121.0" AnchorPane.rightAnchor="529.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ButtonBar prefHeight="80.0" prefWidth="200.0">
+              <buttons>
+                  <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="111.0" text="Search&#10;History" />
+              </buttons>
+            </ButtonBar>
+            <ButtonBar prefHeight="80.0" prefWidth="121.0">
+              <buttons>
+                <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="111.0" text="Button" />
+              </buttons>
+            </ButtonBar>
+         </children></VBox>
+      <Pane layoutX="122.0" layoutY="-1.0" prefHeight="450.0" prefWidth="528.0">
+         <children>
+            <Label fx:id="titleLabel" layoutX="14.0" layoutY="14.0" prefHeight="42.0" prefWidth="196.0">
+               <font>
+                  <Font name="Nirmala UI" size="15.0" />
+               </font></Label>
+            <ListView fx:id="elementsView" layoutY="67.0" prefHeight="384.0" prefWidth="502.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
