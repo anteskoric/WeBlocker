@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CookiesController">
+   <children>
+      <Label layoutX="18.0" layoutY="14.0" prefHeight="36.0" prefWidth="171.0" text="All cookies:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ListView layoutX="18.0" layoutY="88.0" prefHeight="348.0" prefWidth="614.0" />
+      <Label layoutX="18.0" layoutY="43.0" prefHeight="36.0" prefWidth="614.0" text="Click on the item to delete the cookie." />
+   </children>
+</AnchorPane>
