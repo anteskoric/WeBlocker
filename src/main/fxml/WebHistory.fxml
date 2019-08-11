@@ -15,12 +15,12 @@
          <children>
             <ButtonBar prefHeight="80.0" prefWidth="200.0">
               <buttons>
-                  <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="111.0" text="Search&#10;History" />
+                  <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="111.0" text="Search&#10;History" textAlignment="CENTER" />
               </buttons>
             </ButtonBar>
             <ButtonBar prefHeight="80.0" prefWidth="121.0">
               <buttons>
-                <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="111.0" text="Button" />
+                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="111.0" text="Searched &#10;Terms" textAlignment="CENTER" />
               </buttons>
             </ButtonBar>
          </children></VBox>
@@ -30,7 +30,7 @@
                <font>
                   <Font name="Nirmala UI" size="15.0" />
                </font></Label>
-            <ListView fx:id="elementsView" layoutY="67.0" prefHeight="384.0" prefWidth="502.0" />
+            <ListView fx:id="elementsView" layoutX="12.0" layoutY="66.0" prefHeight="384.0" prefWidth="502.0" />
          </children>
       </Pane>
    </children>

@@ -15,7 +15,7 @@
             <children>
                 <ButtonBar prefHeight="90.0" prefWidth="149.0">
                     <buttons>
-                        <Button fx:id="websiteHistory" mnemonicParsing="false" onAction="#onActionWebsiteHistory" prefHeight="90.0" prefWidth="138.0" text="Web history&#10;">
+                        <Button fx:id="websiteHistory" alignment="CENTER" mnemonicParsing="false" onAction="#onActionWebsiteHistory" prefHeight="90.0" prefWidth="138.0" text="Web &#10;History" textAlignment="CENTER">
                             <font>
                                 <Font name="Nirmala UI" size="18.0" />
                             </font>
@@ -24,7 +24,7 @@
                 </ButtonBar>
                 <ButtonBar prefHeight="90.0" prefWidth="149.0">
                     <buttons>
-                        <Button fx:id="blockWebsite" minWidth="0.0" mnemonicParsing="false" onAction="#onActionBlockWebsite" prefHeight="90.0" prefWidth="138.0" text="Block &#10;website">
+                        <Button fx:id="blockWebsite" alignment="CENTER" minWidth="0.0" mnemonicParsing="false" onAction="#onActionBlockWebsite" prefHeight="90.0" prefWidth="138.0" text="Block &#10;Website" textAlignment="CENTER">
                             <font>
                                 <Font name="Nirmala UI" size="18.0" />
                             </font>
@@ -33,7 +33,7 @@
                 </ButtonBar>
                 <ButtonBar prefHeight="90.0" prefWidth="149.0">
                     <buttons>
-                        <Button fx:id="blockedAndUnblock" mnemonicParsing="false" onAction="#onActionBlockedAndUnblock" prefHeight="90.0" prefWidth="138.0" text="Blocked&#10;&amp; unblock">
+                        <Button fx:id="blockedAndUnblock" alignment="CENTER" mnemonicParsing="false" onAction="#onActionBlockedAndUnblock" prefHeight="90.0" prefWidth="138.0" text="Blocked&#10;&amp; unblock" textAlignment="CENTER">
                             <font>
                                 <Font name="Nirmala UI" size="18.0" />
                             </font>
