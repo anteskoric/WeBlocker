@@ -59,6 +59,7 @@ public class Main extends Application {
 
         primaryStage.setScene(new Scene(root));
         primaryStage.setTitle("WeBlocker");
+        primaryStage.resizableProperty().setValue(Boolean.FALSE);
         primaryStage.show();
     }
 }

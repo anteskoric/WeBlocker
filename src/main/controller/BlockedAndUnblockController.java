@@ -21,6 +21,9 @@ package controller;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import logic.IOHosts;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,7 +59,7 @@ public class BlockedAndUnblockController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<String> blockedWebsitesList = FXCollections.observableArrayList(IOHosts.getBlockedSites());
-        blockedWebsites.setItems(blockedWebsitesList);
+        this.blockedWebsites.setItems(blockedWebsitesList);
     }
 
     /**
@@ -65,6 +68,6 @@ public class BlockedAndUnblockController implements Initializable {
      */
     @FXML
     public void onActionBlockedWebsites(){
-        IOHosts.unblockSite(blockedWebsites.getSelectionModel().getSelectedItem(),"C:\\Users\\agrok\\Desktop\\WeBlocker\\main\\src\\files\\tempFile.txt");
+        IOHosts.unblockSite(blockedWebsites.getSelectionModel().getSelectedItem(),"C:\\Users\\agrok\\Desktop\\WeBlocker\\src\\main\\files\\tempFile.txt");
     }
 }

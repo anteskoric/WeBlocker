@@ -71,7 +71,7 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     public void onActionWebsiteUsage() {
-        changeStage("/fxml/WebsiteUsage.fxml");
+        changeStage("/fxml/WebsiteUsage.fxml","Website Usage");
     }
 
     /**
@@ -79,7 +79,7 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     public void onActionBlockWebsite() {
-        changeStage("/fxml/BlockWebSite.fxml");
+        changeStage("/fxml/BlockWebSite.fxml","Block Website");
     }
 
     /**
@@ -87,7 +87,7 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     public void onActionBlockedAndUnblock() {
-        changeStage("/fxml/BlockedAndUnblock.fxml");
+        changeStage("/fxml/BlockedAndUnblock.fxml","Blocked And Unblocked");
     }
 
     /**
@@ -95,7 +95,7 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     public void onActionContact() {
-        changeStage("/fxml/Contact.fxml");
+        changeStage("/fxml/Contact.fxml","Contact");
     }
 
     /**
@@ -115,7 +115,7 @@ public class MainMenuController implements Initializable {
      * The method changeStage creates new Stage from the given fxml file
      * @param path Path of fxml file
      */
-    private void changeStage(String path) {
+    private void changeStage(String path, String title) {
         try {
             //TODO Delete commented code
             //Stage currentStage = (Stage) this.websiteUsage.getScene().getWindow();
@@ -124,6 +124,8 @@ public class MainMenuController implements Initializable {
             Pane root = FXMLLoader.load(getClass().getResource(path));
             blockWebSiteStage.initModality(Modality.APPLICATION_MODAL);
             blockWebSiteStage.setScene(new Scene(root));
+            blockWebSiteStage.resizableProperty().setValue(Boolean.FALSE);
+            blockWebSiteStage.setTitle(title);
             blockWebSiteStage.show();
         } catch (IOException a) {
             //TODO make into loggs

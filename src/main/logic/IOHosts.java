@@ -53,7 +53,7 @@ public final class IOHosts {
 
     /**
      * The method blockSite is used for blocking access to websites
-     * @param url url of the website for example www.example.com or https//:www.example.com/
+     * @param url url of the website for example www.example.com or https://www.example.com/
      * @throws IllegalArgumentException if user does not input url of a website
      */
 
@@ -88,7 +88,7 @@ public final class IOHosts {
     public static void unblockSite(String url, String tempFilePath) {
         String hostName = null;
         try {
-            hostName = new URL(url).getHost();
+            hostName = new URL("https://" + url).getHost();
         } catch (MalformedURLException a) {
             //TODO change this into logs
             System.err.println(a);
