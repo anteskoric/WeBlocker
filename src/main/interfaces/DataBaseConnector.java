@@ -37,7 +37,7 @@ public interface DataBaseConnector {
      * @param path the Path of the database
      * @return The connection to the database
      */
-    public static Connection connect(String path){
+    static Connection connect(String path){
         Connection connection = null;
         try{
             connection = DriverManager.getConnection(path);

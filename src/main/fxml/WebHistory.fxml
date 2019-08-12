@@ -15,12 +15,12 @@
          <children>
             <ButtonBar prefHeight="80.0" prefWidth="200.0">
               <buttons>
-                  <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="111.0" text="Search&#10;History" textAlignment="CENTER" />
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="111.0" text="Search&#10;History" textAlignment="CENTER" />
               </buttons>
             </ButtonBar>
             <ButtonBar prefHeight="80.0" prefWidth="121.0">
               <buttons>
-                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="111.0" text="Searched &#10;Terms" textAlignment="CENTER" />
+                <Button alignment="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="111.0" text="Searched &#10;Terms" textAlignment="CENTER" />
               </buttons>
             </ButtonBar>
          </children></VBox>

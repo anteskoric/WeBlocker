@@ -34,6 +34,7 @@ import java.sql.*;
 public final class CookiesDataExtractor implements DataBaseConnector {
     private CookiesDataExtractor(){}
 
+    //TODO remove this
     public static void main(String[] args) {
         CookiesDataExtractor.selectCookies();
     }
@@ -50,6 +51,7 @@ public final class CookiesDataExtractor implements DataBaseConnector {
                 System.out.println(resultSet.getArray("name"));
             }
         }catch (SQLException a){
+            //TODO make into logs
             System.err.println(a.getErrorCode());
         }
     }
@@ -73,6 +75,7 @@ public final class CookiesDataExtractor implements DataBaseConnector {
             preparedStatement.execute();
 
         }catch (SQLException a){
+            //TODO make into logs
             System.err.println(a.getErrorCode());
         }
     }
