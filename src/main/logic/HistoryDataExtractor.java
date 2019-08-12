@@ -22,11 +22,16 @@ package logic;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import interfaces.DataBaseConnector;
+
 /**
- * SQLite scripts imbedded into Java for finding data in the history database
+ * SQLite scripts imbedded into Java for finding and updating data in the Google Chrome history database
  * @author Ante Skoric
  */
 
-class HistoryDataExtractor{
+public final class HistoryDataExtractor implements DataBaseConnector {
+    private HistoryDataExtractor(){}
+    public static void selectSearchHistory(){
 
+    }
 }
