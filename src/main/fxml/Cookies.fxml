@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -12,7 +13,16 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ListView layoutX="18.0" layoutY="88.0" prefHeight="348.0" prefWidth="614.0" />
       <Label layoutX="18.0" layoutY="43.0" prefHeight="36.0" prefWidth="614.0" text="Click on the item to delete the cookie." />
+      <TableView layoutX="18.0" layoutY="88.0" prefHeight="348.0" prefWidth="614.0">
+        <columns>
+          <TableColumn prefWidth="102.0" text="Name" />
+          <TableColumn prefWidth="102.0" text="Host Key" />
+            <TableColumn prefWidth="102.0" text="Has expired" />
+            <TableColumn prefWidth="102.0" text="Creation Date" />
+            <TableColumn prefWidth="102.0" text="Expires Date" />
+            <TableColumn prefWidth="102.0" text="Last Access Date" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
