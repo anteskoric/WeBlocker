@@ -22,9 +22,12 @@ package logic;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import database.classes.Cookie;
 import interfaces.DataBaseConnector;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * SQLite scripts imbedded into Java for finding and updating data in the Google Chrome cookies database
@@ -42,18 +45,20 @@ public final class CookiesDataExtractor implements DataBaseConnector {
     /**
      * Get name, host key, has expires, creation utc, expires utc, last access utc of the cookies from the Cookies database
      */
-    public static void selectCookies(){
+    public static List<Cookie> selectCookies(){
         String sqlStatement = "SELECT name, host_key, has_expires, creation_utc, expires_utc, last_access_utc FROM cookies";
-
+        List<Cookie> cookieList = new ArrayList<>();
         try(Connection connect = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cookies");
             ResultSet resultSet = connect.createStatement().executeQuery(sqlStatement)){
             while (resultSet.next()){
-                System.out.println(resultSet.getArray("name"));
+                resultSet.getString("name");
+                resultSet.getString("");
             }
         }catch (SQLException a){
             //TODO make into logs
             System.err.println(a.getErrorCode());
         }
+        return cookieList;
     }
 
     /**

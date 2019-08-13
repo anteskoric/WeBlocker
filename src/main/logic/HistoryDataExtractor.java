@@ -22,12 +22,15 @@ package logic;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import database.classes.Term;
 import interfaces.DataBaseConnector;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * SQLite scripts imbedded into Java for finding and updating data in the Google Chrome history database
@@ -38,6 +41,10 @@ public final class HistoryDataExtractor implements DataBaseConnector {
 
     private HistoryDataExtractor(){}
 
+    //TODO delete this
+    public static void main(String[] args) {
+       System.out.println(HistoryDataExtractor.selectSearchTerms());
+    }
     /**
      * Get title, url, visit count and last visited time from the database history from the table urls
      */
@@ -58,18 +65,20 @@ public final class HistoryDataExtractor implements DataBaseConnector {
     /**
      * Get term from the database history from the table keyword_search_terms
      */
-    public static void selectSearchTerms(){
+    public static List<Term> selectSearchTerms(){
         String sqlStatement = "SELECT term FROM keyword_search_terms;";
+        List<Term> terms = new ArrayList<>();
 
         try(Connection connect = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
             ResultSet resultSet = connect.createStatement().executeQuery(sqlStatement)){
             while (resultSet.next()){
-                System.out.println(resultSet.getArray("add_something"));
+                terms.add(new Term(resultSet.getString("term")));
             }
         }catch (SQLException a){
             //TODO make into logs
             System.err.println(a.getErrorCode());
         }
+        return terms;
     }
 
     /**
