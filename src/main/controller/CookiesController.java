@@ -42,24 +42,46 @@ import java.util.ResourceBundle;
  */
 public class CookiesController implements Initializable {
 
+    /**
+     * The cookiesTable is the TableView that displays all the cookies
+     */
     @FXML
     private TableView<Cookie> cookiesTable;
 
+    /**
+     * nameColumn is TableColumn of the TableView cookiesTable it displays the name of the object
+     */
     @FXML
     private TableColumn<Cookie, String> nameColumn;
 
+    /**
+     * hostKeyColumn is TableColumn of the TableView cookiesTable it displays the hostKey of the object
+     */
     @FXML
     private TableColumn<Cookie, String> hostKeyColumn;
 
+    /**
+     * hasExpiredColumn is TableColumn of the TableView cookiesTable it displays if the cookies has expired
+     * If cookie is expired it will display 1 else 0
+     */
     @FXML
-    private TableColumn<Cookie,Integer> hasExpired;
+    private TableColumn<Cookie,Integer> hasExpiredColumn;
 
+    /**
+     * creationDateColumn is TableColumn of the TableView cookiesTable it displays the creationTime of the object
+     */
     @FXML
     private TableColumn<Cookie, LocalDateTime> creationDateColumn;
 
+    /**
+     * expiresDateColumn is TableColumn of the TableView cookiesTable it displays the expiresTime of the object
+     */
     @FXML
     private TableColumn<Cookie,LocalDateTime> expiresDateColumn;
 
+    /**
+     * lastAccessColumn is TableColumn of the TableView cookiesTable it displays the lastAccessTime of the object
+     */
     @FXML
     private TableColumn<Cookie, LocalDateTime> lastAccessColumn;
 
@@ -75,7 +97,7 @@ public class CookiesController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         hostKeyColumn.setCellValueFactory(new PropertyValueFactory<>("hostKey"));
-        hasExpired.setCellValueFactory(new PropertyValueFactory<>("hasExpired"));
+        hasExpiredColumn.setCellValueFactory(new PropertyValueFactory<>("hasExpiredColumn"));
         creationDateColumn.setCellValueFactory(new PropertyValueFactory<>("creationTime"));
         expiresDateColumn.setCellValueFactory(new PropertyValueFactory<>("expiresTime"));
         lastAccessColumn.setCellValueFactory(new PropertyValueFactory<>("lastAccessTime"));
