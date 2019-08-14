@@ -107,4 +107,5 @@ public class WebHistoryController implements Initializable {
 
         elementsView.setItems(FXCollections.observableArrayList(HistoryDataExtractor.selectSearchHistory()));
     }
+
 }
