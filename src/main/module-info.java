@@ -7,4 +7,5 @@ module JavaFxApplication {
 
     opens controller;
     opens logic;
+    opens database.classes;
 }

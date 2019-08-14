@@ -22,9 +22,18 @@ package controller;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import database.classes.Cookie;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import logic.CookiesDataExtractor;
 
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 /**
@@ -32,6 +41,28 @@ import java.util.ResourceBundle;
  * @author Ante Skoric
  */
 public class CookiesController implements Initializable {
+
+    @FXML
+    private TableView<Cookie> cookiesTable;
+
+    @FXML
+    private TableColumn<Cookie, String> nameColumn;
+
+    @FXML
+    private TableColumn<Cookie, String> hostKeyColumn;
+
+    @FXML
+    private TableColumn<Cookie,Integer> hasExpired;
+
+    @FXML
+    private TableColumn<Cookie, LocalDateTime> creationDateColumn;
+
+    @FXML
+    private TableColumn<Cookie,LocalDateTime> expiresDateColumn;
+
+    @FXML
+    private TableColumn<Cookie, LocalDateTime> lastAccessColumn;
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -42,6 +73,14 @@ public class CookiesController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        hostKeyColumn.setCellValueFactory(new PropertyValueFactory<>("hostKey"));
+        hasExpired.setCellValueFactory(new PropertyValueFactory<>("hasExpired"));
+        creationDateColumn.setCellValueFactory(new PropertyValueFactory<>("creationTime"));
+        expiresDateColumn.setCellValueFactory(new PropertyValueFactory<>("expiresTime"));
+        lastAccessColumn.setCellValueFactory(new PropertyValueFactory<>("lastAccessTime"));
 
+        ObservableList<Cookie> cookiesList = FXCollections.observableArrayList(CookiesDataExtractor.selectCookies());
+        cookiesTable.setItems(cookiesList);
     }
 }

@@ -22,12 +22,19 @@ package controller;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import database.classes.Url;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import logic.HistoryDataExtractor;
 
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 /**
@@ -42,7 +49,23 @@ public class WebHistoryController implements Initializable {
      * The elementsView is ListView with search terms or search history in it
      */
     @FXML
-    private ListView elementsView;
+    private TableView<Url> elementsView;
+
+    @FXML
+    private TableColumn<Url,Integer> idColumn;
+
+    @FXML
+    private TableColumn<Url,String> titleColumn;
+
+    @FXML
+    private TableColumn<Url,String> urlColumn;
+
+    @FXML
+    private TableColumn<Url, LocalDateTime> visitCountColumn;
+
+    @FXML
+    private TableColumn<Url,LocalDateTime> lastVisitColumn;
+
 
     /**
      * Is the label that describes the elementsView
@@ -60,6 +83,13 @@ public class WebHistoryController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        titleLabel.setText("Search History");
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        urlColumn.setCellValueFactory(new PropertyValueFactory<>("url"));
+        visitCountColumn.setCellValueFactory(new PropertyValueFactory<>("visitCount"));
+        lastVisitColumn.setCellValueFactory(new PropertyValueFactory<>("lastVisitTime"));
 
+        elementsView.setItems(FXCollections.observableArrayList(HistoryDataExtractor.selectSearchHistory()));
     }
 }
