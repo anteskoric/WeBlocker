@@ -24,24 +24,51 @@ package database.classes;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.stream.IntStream;
 
 /**
  * The class Url represents the data structure from the table url of the database history
  * @author Ante Skoric
  */
 public class Url {
+
+    /**
+     * The id of the Url
+     */
+    private Integer id;
+
+    /**
+     * The title of the Url
+     */
     private String title;
+
+    /**
+     * The Url of the website
+     */
     private String url;
+
+    /**
+     * The number of visits
+     */
     private Integer visitCount;
+
+    /**
+     * The last visited time
+     */
+
     private LocalDateTime lastVisitTime;
 
-    public Url(String title, String url, int visitCount, LocalDateTime lastVisitTime){
+    public Url(Integer id, String title, String url, int visitCount, LocalDateTime lastVisitTime){
+        this.id = id;
         this.title = title;
         this.url = url;
         this.visitCount = visitCount;
         this.lastVisitTime = lastVisitTime;
     }
+
+    /**
+     * The field getters
+     */
+    public Integer getId(){return this.id;}
 
     public String getTitle() {
         return this.title;
@@ -59,6 +86,34 @@ public class Url {
         return this.lastVisitTime;
     }
 
+    /**
+     * The field setters
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setVisitCount(Integer visitCount) {
+        this.visitCount = visitCount;
+    }
+
+    public void setLastVisitTime(LocalDateTime lastVisitTime) {
+        this.lastVisitTime = lastVisitTime;
+    }
+
+    /**
+     *
+     * @param o Object to be verified
+     * @return boolea true if the objects are equal else false
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -70,11 +125,18 @@ public class Url {
                 Objects.equals(lastVisitTime, url1.lastVisitTime);
     }
 
+    /**
+     * Generates hash code of the object
+     * @return hash code of the object
+     */
     @Override
     public int hashCode() {
         return Objects.hash(title, url, visitCount, lastVisitTime);
     }
 
+    /**
+     * @return object in the form of string
+     */
     @Override
     public String toString() {
         return "Url{" +
