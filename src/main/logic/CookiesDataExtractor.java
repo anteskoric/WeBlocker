@@ -26,6 +26,7 @@ import database.classes.Cookie;
 import interfaces.DataBaseConnector;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,13 +38,11 @@ import java.util.List;
 public final class CookiesDataExtractor implements DataBaseConnector {
     private CookiesDataExtractor(){}
 
-    //TODO remove this
-    public static void main(String[] args) {
-        CookiesDataExtractor.selectCookies();
-    }
 
     /**
      * Get name, host key, has expires, creation utc, expires utc, last access utc of the cookies from the Cookies database
+     *
+     * @return List of cookies from the DB
      */
     public static List<Cookie> selectCookies(){
         String sqlStatement = "SELECT name, host_key, has_expires, creation_utc, expires_utc, last_access_utc FROM cookies";
@@ -51,8 +50,13 @@ public final class CookiesDataExtractor implements DataBaseConnector {
         try(Connection connect = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cookies");
             ResultSet resultSet = connect.createStatement().executeQuery(sqlStatement)){
             while (resultSet.next()){
-                resultSet.getString("name");
-                resultSet.getString("");
+                String name = resultSet.getString("name");
+                String hostKey = resultSet.getString("host_key");
+                int hasExpires = resultSet.getInt("has_expires");
+                LocalDateTime creationTime = DateManager.setUnixTime(resultSet.getLong("creation_utc"));
+                LocalDateTime expiresTime = DateManager.setUnixTime(resultSet.getLong("expires_utc"));
+                LocalDateTime lastAccessTime = DateManager.setUnixTime(resultSet.getLong("last_access_utc"));
+                cookieList.add(new Cookie(name,hostKey,hasExpires,creationTime,expiresTime,lastAccessTime));
             }
         }catch (SQLException a){
             //TODO make into logs
