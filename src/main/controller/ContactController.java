@@ -22,12 +22,6 @@ package controller;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * ContactController is a class for controlling the fxml Contact.fxml.
@@ -35,17 +29,5 @@ import java.util.ResourceBundle;
  * @author Ante Skoric
  */
 
-public class ContactController implements Initializable {
-    //TODO is Initializable needed?
-    /**
-     * Called to initialize a controller after its root element has been
-     * completely processed.
-     *
-     * @param location  The location used to resolve relative paths for the root object, or
-     *                  {@code null} if the location is not known.
-     * @param resources The resources used to localize the root object, or {@code null} if
-     */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-    }
+public class ContactController{
 }
