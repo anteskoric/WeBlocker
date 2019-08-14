@@ -23,12 +23,14 @@ package logic;
 // THE SOFTWARE.
 
 import database.classes.Term;
+import database.classes.Url;
 import interfaces.DataBaseConnector;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,18 +50,25 @@ public final class HistoryDataExtractor implements DataBaseConnector {
     /**
      * Get title, url, visit count and last visited time from the database history from the table urls
      */
-    public static void selectSearchHistory(){
-        String sqlStatement = "SELECT title, url, visit_count, last_visit_time FROM urls ORDER BY last_visit_time DESC;";
+    public static List<Url> selectSearchHistory(){
+        String sqlStatement = "SELECT id, title, url, visit_count, last_visit_time FROM urls ORDER BY last_visit_time DESC;";
+        List<Url> urlList = new ArrayList<>();
 
         try (Connection connect = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
              ResultSet resultSet = connect.createStatement().executeQuery(sqlStatement)){
             while (resultSet.next()){
-                System.out.println(resultSet.getArray("add_something"));
+                Integer id = resultSet.getInt("id");
+                String title = resultSet.getString("title");
+                String url = resultSet.getString("url");
+                int visitCount = resultSet.getInt("visit_count");
+                LocalDateTime lastVisit = DateManager.setUnixTime(resultSet.getLong("last_visit_time"));
+                urlList.add(new Url(id,title,url,visitCount,lastVisit));
             }
         }catch (SQLException a){
             //TODO make into logs
             System.err.println(a.getErrorCode());
         }
+        return urlList;
     }
 
     /**
