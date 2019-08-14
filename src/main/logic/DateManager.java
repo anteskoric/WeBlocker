@@ -22,9 +22,7 @@ package logic;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -34,12 +32,25 @@ import java.time.format.DateTimeFormatter;
  */
 public final class DateManager {
     private DateManager(){}
-    //TODO comment
+
+    //TODO make the method better or do it with database
+
+    /**
+     * Gets the Date and Time from 1601/1/1 plus the passed microseconds
+     * @param microseconds the amount of microseconds we want to add to the year
+     * @return new date
+     */
     public static LocalDateTime setUnixTime(Long microseconds){
-        LocalDateTime startingPoint = LocalDateTime.of(1601,01,01,00,00);
-        startingPoint.plus(Duration.ofNanos(microseconds));
-        return startingPoint;
+        LocalDateTime startingPoint = LocalDateTime.of(1601, Month.JANUARY,1,0,0);
+        long seconds = microseconds / 1000000;
+        return startingPoint.plus(Duration.ofSeconds(seconds));
     }
+
+    /**
+     * Get Date and Time in a form of String in european form yyyy/mm/dd
+     * @param time The LocalDateTime we want to format
+     * @return Date and Time in a String form
+     */
     public static String setEuropianFormat(LocalDateTime time){
         return time.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
