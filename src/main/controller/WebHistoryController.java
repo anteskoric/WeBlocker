@@ -51,18 +51,33 @@ public class WebHistoryController implements Initializable {
     @FXML
     private TableView<Url> elementsView;
 
+    /**
+     * The idColumn represents the column of the elementsView where the id of the object is saved
+     */
     @FXML
     private TableColumn<Url,Integer> idColumn;
 
+    /**
+     * The titleColumn represents the column of the elementsView where the title of the object is saved
+     */
     @FXML
     private TableColumn<Url,String> titleColumn;
 
+    /**
+     * The urlColumn represents the column of the elementsView where the url of the object is saved
+     */
     @FXML
     private TableColumn<Url,String> urlColumn;
 
+    /**
+     * The visitCountColumn represents the column of the elementsView where the visitCounter of the object is saved
+     */
     @FXML
     private TableColumn<Url, LocalDateTime> visitCountColumn;
 
+    /**
+     * The lastVisitColumn represents the column of the elementsView where the lastVisitTime of the object is saved
+     */
     @FXML
     private TableColumn<Url,LocalDateTime> lastVisitColumn;
 
