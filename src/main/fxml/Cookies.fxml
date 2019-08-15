@@ -14,11 +14,11 @@
          </font>
       </Label>
       <Label layoutX="18.0" layoutY="43.0" prefHeight="36.0" prefWidth="614.0" text="Click on the item to delete the cookie." />
-      <TableView fx:id="cookiesTable" layoutX="18.0" layoutY="88.0" prefHeight="348.0" prefWidth="614.0">
+      <TableView fx:id="cookiesTable" layoutX="18.0" layoutY="88.0" onMouseClicked="#onActionTableView" prefHeight="348.0" prefWidth="614.0">
         <columns>
           <TableColumn fx:id="nameColumn" prefWidth="102.0" text="Name" />
           <TableColumn fx:id="hostKeyColumn" prefWidth="102.0" text="Host Key" />
-            <TableColumn fx:id="hasExpired" prefWidth="102.0" text="Has expired" />
+            <TableColumn fx:id="hasExpiredColumn" prefWidth="102.0" text="Has expired" />
             <TableColumn fx:id="creationDateColumn" prefWidth="102.0" text="Creation Date" />
             <TableColumn fx:id="expiresDateColumn" prefWidth="102.0" text="Expires Date" />
             <TableColumn fx:id="lastAccessColumn" prefWidth="102.0" text="Last Access Date" />
