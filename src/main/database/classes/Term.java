@@ -29,33 +29,91 @@ import java.util.Objects;
  * @author Ante Skoric
  */
 public class Term {
+
+    /**
+     * The id of the url
+     */
+    private Long urlId;
+
+    /**
+     * The name (term)
+     */
     private String term;
 
-    public Term(String term){
+    /**
+     * The id of the keyword
+     */
+    private Long keywordID;
+
+    public Term(String term,Long keywordId,Long urlId){
         this.term = term;
+        this.keywordID = keywordId;
+        this.urlId = urlId;
     }
 
+    /**
+     * Getter methods
+     */
     public String getTerm() {
         return term;
     }
 
+    public Long getUrlId() {
+        return urlId;
+    }
+
+    public Long getKeywordID() {
+        return keywordID;
+    }
+
+    /**
+     * The setter methods
+     */
+    public void setUrlId(Long urlId) {
+        this.urlId = urlId;
+    }
+
+    public void setTerm(String term) {
+        this.term = term;
+    }
+
+    public void setKeywordID(Long keywordID) {
+        this.keywordID = keywordID;
+    }
+
+    /**
+     *
+     * @param o Object to be verified
+     * @return boolean true if the objects are equal else false
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Term)) return false;
         Term term1 = (Term) o;
-        return Objects.equals(term, term1.term);
+        return Objects.equals(urlId, term1.urlId) &&
+                Objects.equals(term, term1.term) &&
+                Objects.equals(keywordID, term1.keywordID);
     }
 
+    /**
+     * Generates hash code of the object
+     * @return hash code of the object
+     */
     @Override
     public int hashCode() {
-        return Objects.hash(term);
+        return Objects.hash(urlId, term, keywordID);
     }
 
+    /**
+     * @return object in the form of string
+     */
     @Override
     public String toString() {
         return "Term{" +
-                "term='" + term + '\'' +
+                "urlId=" + urlId +
+                ", term='" + term + '\'' +
+                ", keywordID=" + keywordID +
                 '}';
     }
 }
