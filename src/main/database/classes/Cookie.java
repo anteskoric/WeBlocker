@@ -141,7 +141,7 @@ public class Cookie {
     /**
      *
      * @param o Object to be verified
-     * @return boolea true if the objects are equal else false
+     * @return boolean true if the objects are equal else false
      */
     @Override
     public boolean equals(Object o) {
