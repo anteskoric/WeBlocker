@@ -22,7 +22,6 @@ package database.classes;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -55,9 +54,9 @@ public class Url {
      * The last visited time
      */
 
-    private LocalDateTime lastVisitTime;
+    private String lastVisitTime;
 
-    public Url(Integer id, String title, String url, int visitCount, LocalDateTime lastVisitTime){
+    public Url(Integer id, String title, String url, int visitCount, String lastVisitTime){
         this.id = id;
         this.title = title;
         this.url = url;
@@ -82,7 +81,7 @@ public class Url {
         return this.visitCount;
     }
 
-    public LocalDateTime getLastVisitTime(){
+    public String getLastVisitTime(){
         return this.lastVisitTime;
     }
 
@@ -105,7 +104,7 @@ public class Url {
         this.visitCount = visitCount;
     }
 
-    public void setLastVisitTime(LocalDateTime lastVisitTime) {
+    public void setLastVisitTime(String lastVisitTime) {
         this.lastVisitTime = lastVisitTime;
     }
 
