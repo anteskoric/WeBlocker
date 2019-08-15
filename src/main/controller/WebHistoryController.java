@@ -23,18 +23,17 @@ package controller;
 // THE SOFTWARE.
 
 import database.classes.Url;
+import exceptions.SelectedColumnIsEmptyException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import logic.HistoryDataExtractor;
 
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 /**
@@ -51,11 +50,6 @@ public class WebHistoryController implements Initializable {
     @FXML
     private TableView<Url> elementsView;
 
-    /**
-     * The idColumn represents the column of the elementsView where the id of the object is saved
-     */
-    @FXML
-    private TableColumn<Url,Integer> idColumn;
 
     /**
      * The titleColumn represents the column of the elementsView where the title of the object is saved
@@ -73,13 +67,13 @@ public class WebHistoryController implements Initializable {
      * The visitCountColumn represents the column of the elementsView where the visitCounter of the object is saved
      */
     @FXML
-    private TableColumn<Url, LocalDateTime> visitCountColumn;
+    private TableColumn<Url, String> visitCountColumn;
 
     /**
      * The lastVisitColumn represents the column of the elementsView where the lastVisitTime of the object is saved
      */
     @FXML
-    private TableColumn<Url,LocalDateTime> lastVisitColumn;
+    private TableColumn<Url, String> lastVisitColumn;
 
 
     /**
@@ -99,13 +93,40 @@ public class WebHistoryController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         titleLabel.setText("Search History");
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         urlColumn.setCellValueFactory(new PropertyValueFactory<>("url"));
         visitCountColumn.setCellValueFactory(new PropertyValueFactory<>("visitCount"));
         lastVisitColumn.setCellValueFactory(new PropertyValueFactory<>("lastVisitTime"));
+        addElementsIntoTableView();
+    }
 
+    /**
+     * Adds elements into TableView
+     */
+    private void addElementsIntoTableView() {
         elementsView.setItems(FXCollections.observableArrayList(HistoryDataExtractor.selectSearchHistory()));
     }
 
+    /**
+     * Deletes cookies from the db and updates the TableView
+     * @throws SelectedColumnIsEmptyException if selected row is empty throws the exception
+     */
+    @FXML
+    public void onActionTableView(){
+        isColumnNull();
+        HistoryDataExtractor.deleteSearchHistory(elementsView.getSelectionModel().getSelectedItem().getId(),
+                elementsView.getSelectionModel().getSelectedItem().getUrl(),
+                elementsView.getSelectionModel().getSelectedItem().getTitle());
+
+        addElementsIntoTableView();
+    }
+
+    /**
+     * Check if the selected row is empty
+     * @throws SelectedColumnIsEmptyException if empty
+     */
+    private void isColumnNull() {
+        if(elementsView.getSelectionModel().isEmpty())
+            throw new SelectedColumnIsEmptyException("The chosen row is empty");
+    }
 }
