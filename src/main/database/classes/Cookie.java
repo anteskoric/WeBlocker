@@ -22,7 +22,6 @@ package database.classes;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -48,24 +47,30 @@ public class Cookie {
     private int hasExpired;
 
     /**
+     * The time of creation used for DELETING from db
+     */
+    private Long creationUtc;
+
+    /**
      * The time of creation
      */
-    private LocalDateTime creationTime;
+    private String creationTime;
 
     /**
      * The time and date when the cookie expires
      */
-    private LocalDateTime expiresTime;
+    private String expiresTime;
 
     /**
      * Last access of the cookie
      */
-    private LocalDateTime lastAccessTime;
+    private String lastAccessTime;
 
-    public Cookie(String name, String hostKey, int hasExpired, LocalDateTime creationTime, LocalDateTime expiresTime, LocalDateTime lastAccessTime){
+    public Cookie(String name, String hostKey, int hasExpired, Long creationUtc, String creationTime, String expiresTime, String lastAccessTime){
         this.name = name;
         this.hostKey = hostKey;
         this.hasExpired = hasExpired;
+        this.creationUtc = creationUtc;
         this.creationTime = creationTime;
         this.expiresTime = expiresTime;
         this.lastAccessTime = lastAccessTime;
@@ -86,16 +91,20 @@ public class Cookie {
         return this.hasExpired;
     }
 
-    public LocalDateTime getCreationTime() {
+    public String getCreationTime() {
         return this.creationTime;
     }
 
-    public LocalDateTime getExpiresTime() {
+    public String getExpiresTime() {
         return this.expiresTime;
     }
 
-    public LocalDateTime getLastAccessTime() {
+    public String getLastAccessTime() {
         return this.lastAccessTime;
+    }
+
+    public long getCreationUtc() {
+        return creationUtc;
     }
 
     /**
@@ -113,16 +122,20 @@ public class Cookie {
         this.hasExpired = hasExpired;
     }
 
-    public void setCreationTime(LocalDateTime creationTime) {
+    public void setCreationTime(String creationTime) {
         this.creationTime = creationTime;
     }
 
-    public void setExpiresTime(LocalDateTime expiresTime) {
+    public void setExpiresTime(String expiresTime) {
         this.expiresTime = expiresTime;
     }
 
-    public void setLastAccessTime(LocalDateTime lastAccessTime) {
+    public void setLastAccessTime(String lastAccessTime) {
         this.lastAccessTime = lastAccessTime;
+    }
+
+    public void setCreationUtc(long creationUtc) {
+        this.creationUtc = creationUtc;
     }
 
     /**
@@ -138,6 +151,7 @@ public class Cookie {
         return hasExpired == cookie.hasExpired &&
                 Objects.equals(name, cookie.name) &&
                 Objects.equals(hostKey, cookie.hostKey) &&
+                Objects.equals(creationUtc, cookie.creationUtc) &&
                 Objects.equals(creationTime, cookie.creationTime) &&
                 Objects.equals(expiresTime, cookie.expiresTime) &&
                 Objects.equals(lastAccessTime, cookie.lastAccessTime);
@@ -149,7 +163,7 @@ public class Cookie {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(name, hostKey, hasExpired, creationTime, expiresTime, lastAccessTime);
+        return Objects.hash(name, hostKey, hasExpired, creationUtc, creationTime, expiresTime, lastAccessTime);
     }
 
     /**
@@ -161,9 +175,11 @@ public class Cookie {
                 "name='" + name + '\'' +
                 ", hostKey='" + hostKey + '\'' +
                 ", hasExpired=" + hasExpired +
+                ", creationUtc=" + creationUtc +
                 ", creationTime=" + creationTime +
                 ", expiresTime=" + expiresTime +
                 ", lastAccessTime=" + lastAccessTime +
                 '}';
     }
+
 }
