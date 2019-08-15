@@ -37,13 +37,12 @@
                <font>
                   <Font name="Symbol" size="18.0" />
                </font></Label>
-            <TableView fx:id="elementsView" layoutX="7.0" layoutY="78.0" prefHeight="362.0" prefWidth="529.0">
+            <TableView fx:id="elementsView" layoutX="7.0" layoutY="78.0" onMouseClicked="#onActionTableView" prefHeight="362.0" prefWidth="529.0">
               <columns>
-                <TableColumn fx:id="idColumn" prefWidth="105.0" text="ID" />
-                <TableColumn fx:id="titleColumn" prefWidth="105.0" text="Title" />
-                  <TableColumn fx:id="urlColumn" prefWidth="105.0" text="Url" />
-                  <TableColumn fx:id="visitCountColumn" prefWidth="105.0" text="Visit Count" />
-                  <TableColumn fx:id="lastVisitColumn" prefWidth="105.0" text="Last Visit" />
+                <TableColumn fx:id="titleColumn" prefWidth="132.5" text="Title" />
+                  <TableColumn fx:id="urlColumn" prefWidth="132.5" text="Url" />
+                  <TableColumn fx:id="visitCountColumn" prefWidth="132.5" text="Visit Count" />
+                  <TableColumn fx:id="lastVisitColumn" prefWidth="132.5" text="Last Visit" />
               </columns>
             </TableView>
             <Label layoutX="14.0" layoutY="42.0" prefHeight="36.0" prefWidth="494.0" text="Click on the item to delete the row." />
