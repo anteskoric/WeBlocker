@@ -30,7 +30,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,10 +42,6 @@ public final class HistoryDataExtractor implements DataBaseConnector {
 
     private HistoryDataExtractor(){}
 
-    //TODO delete this
-    public static void main(String[] args) {
-       System.out.println(HistoryDataExtractor.selectSearchTerms());
-    }
     /**
      * Get title, url, visit count and last visited time from the database history from the table urls
      */
@@ -61,7 +56,7 @@ public final class HistoryDataExtractor implements DataBaseConnector {
                 String title = resultSet.getString("title");
                 String url = resultSet.getString("url");
                 int visitCount = resultSet.getInt("visit_count");
-                LocalDateTime lastVisit = DateManager.setUnixTime(resultSet.getLong("last_visit_time"));
+                String lastVisit = DateManager.setUnixTime(resultSet.getLong("last_visit_time"));
                 urlList.add(new Url(id,title,url,visitCount,lastVisit));
             }
         }catch (SQLException a){
@@ -75,13 +70,16 @@ public final class HistoryDataExtractor implements DataBaseConnector {
      * Get term from the database history from the table keyword_search_terms
      */
     public static List<Term> selectSearchTerms(){
-        String sqlStatement = "SELECT term FROM keyword_search_terms;";
+        String sqlStatement = "SELECT term, keyword_id, url_id FROM keyword_search_terms;";
         List<Term> terms = new ArrayList<>();
 
         try(Connection connect = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
             ResultSet resultSet = connect.createStatement().executeQuery(sqlStatement)){
             while (resultSet.next()){
-                terms.add(new Term(resultSet.getString("term")));
+                String term = resultSet.getString("term");
+                Long keywordId = resultSet.getLong("keyword_id");
+                Long urlId = resultSet.getLong("url_id");
+                terms.add(new Term(term,keywordId,urlId));
             }
         }catch (SQLException a){
             //TODO make into logs
@@ -95,13 +93,14 @@ public final class HistoryDataExtractor implements DataBaseConnector {
      * @param id Is the integer that specifies url in the database
      * @param title Is string that represents title of the url
      */
-    public static void deleteSearchHistory(int id, String title){
-        String sqlStatement = "DELETE FROM urls WHERE id = ? AND title = ?";
+    public static void deleteSearchHistory(int id, String url, String title){
+        String sqlStatement = "DELETE FROM urls WHERE id = ? AND url = ? AND title = ?";
 
         try(Connection connection = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement)) {
             preparedStatement.setInt(1,id);
-            preparedStatement.setString(2,title);
+            preparedStatement.setString(2,url);
+            preparedStatement.setString(3,title);
             preparedStatement.execute();
         }catch (SQLException a){
             //TODO make into logs
