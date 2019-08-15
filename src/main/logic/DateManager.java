@@ -40,10 +40,10 @@ public final class DateManager {
      * @param microseconds the amount of microseconds we want to add to the year
      * @return new date
      */
-    public static LocalDateTime setUnixTime(Long microseconds){
+    public static String setUnixTime(Long microseconds){
         LocalDateTime startingPoint = LocalDateTime.of(1601, Month.JANUARY,1,0,0);
         long seconds = microseconds / 1000000;
-        return startingPoint.plus(Duration.ofSeconds(seconds));
+        return setEuropianFormat(startingPoint.plus(Duration.ofSeconds(seconds)));
     }
 
     /**
@@ -52,6 +52,6 @@ public final class DateManager {
      * @return Date and Time in a String form
      */
     public static String setEuropianFormat(LocalDateTime time){
-        return time.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        return time.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
     }
 }
