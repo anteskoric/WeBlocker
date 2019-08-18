@@ -114,17 +114,33 @@ public final class HistoryDataExtractor implements DataBaseConnector {
      * @param urlId is integer that represents id for the url
      * @param term is string that represents the term
      */
-    public static void deleteSearchedTerms(int keyWordId, int urlId, String term){
+    public static void deleteSearchedTerms(Long keyWordId, Long urlId, String term){
         String sqlStatement = "DELETE FROM keyword_search_terms WHERE keyword_id = ? AND url_id = ? AND term = ?";
         try(Connection connection = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement)) {
-            preparedStatement.setInt(1,keyWordId);
-            preparedStatement.setInt(2,urlId);
+            preparedStatement.setLong(1,keyWordId);
+            preparedStatement.setLong(2,urlId);
             preparedStatement.setString(3,term);
             preparedStatement.execute();
         }catch (SQLException a){
             //TODO make into logs
             System.err.println(a.getErrorCode());
         }
+    }
+
+    /**
+     * Deletes all data from the urls table of the History DB
+     */
+    public static void deleteAllHistory() {
+        String sqlStatement = "DELETE FROM urls";
+
+        try(Connection connection = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement)) {
+            preparedStatement.execute();
+        }catch (SQLException a){
+            //TODO make into logs
+            System.err.println(a.getErrorCode());
+        }
+
     }
 }
