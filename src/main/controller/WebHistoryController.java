@@ -22,17 +22,23 @@ package controller;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import database.classes.Term;
 import database.classes.Url;
 import exceptions.SelectedColumnIsEmptyException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import logic.HistoryDataExtractor;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -44,12 +50,32 @@ import java.util.ResourceBundle;
 
 public class WebHistoryController implements Initializable {
 
+    //TODO make all javafx methods protected?
     /**
-     * The elementsView is ListView with search terms or search history in it
+     * Search history button
+     */
+    @FXML
+    private Button searchHistoryButton;
+
+    /**
+     * Searched terms button
+     */
+
+    @FXML
+    private Button searchedTermsButton;
+
+
+    /**
+     * Deletes all rows in the TableView
+     */
+    @FXML
+    private Button deleteAllButton;
+
+    /**
+     * The elementsView is TableView with search terms or search history in it
      */
     @FXML
     private TableView<Url> elementsView;
-
 
     /**
      * The titleColumn represents the column of the elementsView where the title of the object is saved
@@ -77,12 +103,6 @@ public class WebHistoryController implements Initializable {
 
 
     /**
-     * Is the label that describes the elementsView
-     */
-    @FXML
-    private Label titleLabel;
-
-    /**
      * Called to initialize a controller after its root element has been
      * completely processed.
      *
@@ -92,12 +112,18 @@ public class WebHistoryController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        titleLabel.setText("Search History");
+        initializeSearchHistory();
+        addElementsIntoTableView();
+    }
+
+    /**
+     * Initialize the TableView, after initializing the elements must be add into the TableView
+     */
+    private void initializeSearchHistory() {
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         urlColumn.setCellValueFactory(new PropertyValueFactory<>("url"));
         visitCountColumn.setCellValueFactory(new PropertyValueFactory<>("visitCount"));
         lastVisitColumn.setCellValueFactory(new PropertyValueFactory<>("lastVisitTime"));
-        addElementsIntoTableView();
     }
 
     /**
@@ -105,6 +131,20 @@ public class WebHistoryController implements Initializable {
      */
     private void addElementsIntoTableView() {
         elementsView.setItems(FXCollections.observableArrayList(HistoryDataExtractor.selectSearchHistory()));
+    }
+
+    @FXML
+    /**
+     * Loads new FXM file TermsHistory.fxml
+     */
+    private void onActionSearchedTerms(){
+        try{
+            Stage currentStage = (Stage) this.elementsView.getScene().getWindow();
+            currentStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/fxml/TermsHistory.fxml"))));
+        }catch (IOException a){
+            //TODO into logs
+            System.err.println(a);
+        }
     }
 
     /**
@@ -119,6 +159,20 @@ public class WebHistoryController implements Initializable {
                 elementsView.getSelectionModel().getSelectedItem().getTitle());
 
         addElementsIntoTableView();
+    }
+
+    /**
+     * Initializes the table view to search history and adds elements into it
+     */
+    @FXML
+    public void onActionSearchHistory(){
+        initializeSearchHistory();
+        addElementsIntoTableView();
+    }
+
+    @FXML
+    public void onActionDeleteAll(){
+        HistoryDataExtractor.deleteAllHistory();
     }
 
     /**
