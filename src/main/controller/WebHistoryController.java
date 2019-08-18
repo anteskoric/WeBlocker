@@ -170,6 +170,9 @@ public class WebHistoryController implements Initializable {
         addElementsIntoTableView();
     }
 
+    /**
+     * Deletes all rows from the DB
+     */
     @FXML
     public void onActionDeleteAll(){
         HistoryDataExtractor.deleteAllHistory();
