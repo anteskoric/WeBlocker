@@ -110,10 +110,6 @@ public class Term {
      */
     @Override
     public String toString() {
-        return "Term{" +
-                "urlId=" + urlId +
-                ", term='" + term + '\'' +
-                ", keywordID=" + keywordID +
-                '}';
+        return this.term;
     }
 }
