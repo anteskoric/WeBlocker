@@ -88,4 +88,19 @@ public final class CookiesDataExtractor implements DataBaseConnector {
             System.err.println(a.getErrorCode());
         }
     }
+
+    /**
+     * Deletes all data from the cookies table of the Cookies DB (truncate)
+     */
+    public static void deleteAllCookies() {
+        String sqlStatement = "DELETE FROM cookies";
+
+        try(Connection connection = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cookies");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement)){
+            preparedStatement.execute();
+        }catch (SQLException a){
+            //TODO make into logs
+            System.err.println(a.getErrorCode());
+        }
+    }
 }
