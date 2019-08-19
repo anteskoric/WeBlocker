@@ -30,7 +30,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import logic.HistoryDataExtractor;
@@ -128,6 +130,20 @@ public class TermsHistoryController implements Initializable {
     public void onActionListView(){
         isColumnNull();
         HistoryDataExtractor.deleteSearchedTerms(termsListView.getSelectionModel().getSelectedItem().getKeywordID(),termsListView.getSelectionModel().getSelectedItem().getUrlId(),termsListView.getSelectionModel().getSelectedItem().getTerm());
+        addTerms();
+    }
+
+    /**
+     * Deletes all rows from the table keyword_search_terms from the DB history
+     * Alert box will be shown, if the user clicks the ok button all rows of the table will be deleted
+     * At the end the ListView will be updated
+     */
+    @FXML
+    public void onActionDeleteAll(){
+        Alert deleteConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        deleteConfirmation.setContentText("Are you sure that you want to delete all rows?");
+        deleteConfirmation.showAndWait().filter(response -> response == ButtonType.OK)
+                .ifPresent(response -> HistoryDataExtractor.deleteAllTerms());
         addTerms();
     }
 

@@ -22,7 +22,6 @@ package controller;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import database.classes.Term;
 import database.classes.Url;
 import exceptions.SelectedColumnIsEmptyException;
 import javafx.collections.FXCollections;
@@ -30,10 +29,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import logic.HistoryDataExtractor;
@@ -171,11 +167,17 @@ public class WebHistoryController implements Initializable {
     }
 
     /**
-     * Deletes all rows from the DB
+     * Deletes all rows from the table urls from the DB history
+     * Alert box will be shown, if the user clicks the ok button all rows of the table will be deleted
+     * At the end the TableView will be updated
      */
     @FXML
     public void onActionDeleteAll(){
-        HistoryDataExtractor.deleteAllHistory();
+        Alert deleteConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        deleteConfirmation.setContentText("Are you sure that you want to delete all rows?");
+        deleteConfirmation.showAndWait().filter(response -> response == ButtonType.OK)
+                .ifPresent(response -> HistoryDataExtractor.deleteAllHistory());
+        addElementsIntoTableView();
     }
 
     /**

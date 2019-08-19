@@ -28,8 +28,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import logic.CookiesDataExtractor;
 
@@ -41,6 +40,12 @@ import java.util.ResourceBundle;
  * @author Ante Skoric
  */
 public class CookiesController implements Initializable {
+
+    /**
+     * The delete all button
+     */
+    @FXML
+    private Button deleteAllButton;
 
     /**
      * The cookiesTable is the TableView that displays all the cookies
@@ -121,6 +126,20 @@ public class CookiesController implements Initializable {
     public void onActionTableView(){
         isColumnNull();
         CookiesDataExtractor.deleteCookie(cookiesTable.getSelectionModel().getSelectedItem().getCreationUtc(),cookiesTable.getSelectionModel().getSelectedItem().getName(),cookiesTable.getSelectionModel().getSelectedItem().getHostKey());
+        addElementsIntoTableView();
+    }
+
+    /**
+     * Deletes all rows from the table cookies from the DB Cookies
+     * Alert box will be shown, if the user clicks the ok button all rows of the table will be deleted
+     * At the end the TableView will be updated
+     */
+    @FXML
+    public void onActionDeleteAll(){
+        Alert deleteConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        deleteConfirmation.setContentText("Are you sure that you want to delete all rows?");
+        deleteConfirmation.showAndWait().filter(response -> response == ButtonType.OK)
+                .ifPresent(response -> CookiesDataExtractor.deleteAllCookies());
         addElementsIntoTableView();
     }
 
