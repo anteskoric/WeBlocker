@@ -127,9 +127,6 @@ public class MainMenuController implements Initializable {
      */
     private void changeStage(String path, String title) {
         try {
-            //TODO Delete commented code
-            //Stage currentStage = (Stage) this.websiteUsage.getScene().getWindow();
-            //currentStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/fxml/BlockWebSite.fxml"))));
             Stage blockWebSiteStage = new Stage();
             Pane root = FXMLLoader.load(getClass().getResource(path));
             blockWebSiteStage.initModality(Modality.APPLICATION_MODAL);
