@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -13,7 +14,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="18.0" layoutY="43.0" prefHeight="36.0" prefWidth="614.0" text="Click on the item to delete the cookie." />
+      <Label layoutX="18.0" layoutY="43.0" prefHeight="36.0" prefWidth="493.0" text="Click on the item to delete the cookie." />
       <TableView fx:id="cookiesTable" layoutX="18.0" layoutY="88.0" onMouseClicked="#onActionTableView" prefHeight="348.0" prefWidth="614.0">
         <columns>
           <TableColumn fx:id="nameColumn" prefWidth="102.0" text="Name" />
@@ -24,5 +25,6 @@
             <TableColumn fx:id="lastAccessColumn" prefWidth="102.0" text="Last Access Date" />
         </columns>
       </TableView>
+      <Button fx:id="deleteAllButton" layoutX="529.0" layoutY="27.0" mnemonicParsing="false" onAction="#onActionDeleteAll" prefHeight="31.0" prefWidth="89.0" text="Delete all" />
    </children>
 </AnchorPane>
