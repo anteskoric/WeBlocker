@@ -24,6 +24,9 @@ package logic;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAmount;
+import java.time.temporal.TemporalUnit;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Utility class for LocalDateTime manipulation
@@ -33,7 +36,7 @@ import java.time.format.DateTimeFormatter;
 public final class DateManager {
     private DateManager(){}
 
-    //TODO make the method better or do it with database
+    //TODO make the method better or do it with database (2 hour of)
 
     /**
      * Gets the Date and Time from 1601/1/1 plus the passed microseconds
@@ -42,8 +45,8 @@ public final class DateManager {
      */
     public static String setUnixTime(Long microseconds){
         LocalDateTime startingPoint = LocalDateTime.of(1601, Month.JANUARY,1,0,0);
-        long seconds = microseconds / 1000000;
-        return setEuropianFormat(startingPoint.plus(Duration.ofSeconds(seconds)));
+        long seconds = TimeUnit.MICROSECONDS.toSeconds(microseconds);
+        return setEuropeanFormat(startingPoint.plus(Duration.ofSeconds(seconds)));
     }
 
     /**
@@ -51,7 +54,7 @@ public final class DateManager {
      * @param time The LocalDateTime we want to format
      * @return Date and Time in a String form
      */
-    public static String setEuropianFormat(LocalDateTime time){
+    public static String setEuropeanFormat(LocalDateTime time){
         return time.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
     }
 }
