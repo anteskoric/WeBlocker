@@ -129,7 +129,7 @@ public final class HistoryDataExtractor implements DataBaseConnector {
     }
 
     /**
-     * Deletes all data from the urls table of the History DB
+     * Deletes all data from the urls table of the History DB (truncate)
      */
     public static void deleteAllHistory() {
         String sqlStatement = "DELETE FROM urls";
@@ -142,5 +142,20 @@ public final class HistoryDataExtractor implements DataBaseConnector {
             System.err.println(a.getErrorCode());
         }
 
+    }
+
+    /**
+     * Delete all data from the keyword_search_terms of the History DB (truncate)
+     */
+    public static void deleteAllTerms() {
+        String sqlStatement = "DELETE FROM keyword_search_terms";
+
+        try(Connection connection = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement)) {
+            preparedStatement.execute();
+        }catch (SQLException a){
+            //TODO make into logs
+            System.err.println(a.getErrorCode());
+        }
     }
 }
