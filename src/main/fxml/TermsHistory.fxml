@@ -20,7 +20,7 @@
             </Label>
             <Label layoutX="14.0" layoutY="42.0" prefHeight="36.0" prefWidth="392.0" text="Click on the item to delete the row." />
             <ListView fx:id="termsListView" layoutX="7.0" layoutY="78.0" onMouseClicked="#onActionListView" prefHeight="362.0" prefWidth="529.0" />
-            <Button fx:id="deleteAllButton" layoutX="422.0" layoutY="28.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="89.0" text="Delete all" />
+            <Button fx:id="deleteAllButton" layoutX="422.0" layoutY="28.0" mnemonicParsing="false" onAction="#onActionDeleteAll" prefHeight="29.0" prefWidth="89.0" text="Delete all" />
          </children>
       </Pane>
       <VBox prefHeight="450.0" prefWidth="107.0">
