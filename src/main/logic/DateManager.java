@@ -36,17 +36,16 @@ import java.util.concurrent.TimeUnit;
 public final class DateManager {
     private DateManager(){}
 
-    //TODO make the method better or do it with database (2 hour of)
-
     /**
      * Gets the Date and Time from 1601/1/1 plus the passed microseconds
+     * Added 7200 seconds for Germany/Berlin time zone
      * @param microseconds the amount of microseconds we want to add to the year
      * @return new date
      */
     public static String setUnixTime(Long microseconds){
         LocalDateTime startingPoint = LocalDateTime.of(1601, Month.JANUARY,1,0,0);
         long seconds = TimeUnit.MICROSECONDS.toSeconds(microseconds);
-        return setEuropeanFormat(startingPoint.plus(Duration.ofSeconds(seconds)));
+        return setEuropeanFormat(startingPoint.plus(Duration.ofSeconds(seconds + 7200)));
     }
 
     /**
