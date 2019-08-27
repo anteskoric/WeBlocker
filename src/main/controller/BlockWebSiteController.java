@@ -33,6 +33,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import logic.IOJson;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,6 +44,8 @@ import java.util.ResourceBundle;
  * @author Ante Skoric
  */
 public class BlockWebSiteController implements Initializable {
+
+    //TODO block website (manually, with hours)
 
     /**
      * CheckBox for immediate website blockage
@@ -123,15 +126,25 @@ public class BlockWebSiteController implements Initializable {
     }
 
     /**
-     * BLocks the website immediately
+     * Blocks the website immediately
      */
     private void blockWebSiteImmediately() {
-        IOHosts.blockSite(getTextUrlField());
+        IOHosts.writeIntoHost(IOHosts.getHostName(getTextUrlField()));
     }
 
-    //TODO write this method
+    /**
+     * Block the website manually
+     */
     private void blockWebSiteManually(){
-
+        long hoursInt = 0;
+        try {
+            hoursInt = Long.parseLong(getTextManuallyField());
+        }
+        catch (NumberFormatException e) {
+            System.err.println(e.getMessage());
+        }
+        IOHosts.checkUsersUrlInput(getTextUrlField());
+        IOJson.saveManualData(getTextUrlField(),hoursInt);
     }
 
     /**
