@@ -74,6 +74,7 @@ public class BlockWebSiteController implements Initializable {
 
     /**
      * Getter for the context of the urlField
+     *
      * @return Context (text) of the urlField
      */
     private String getTextUrlField() {
@@ -82,9 +83,10 @@ public class BlockWebSiteController implements Initializable {
 
     /**
      * Getter for the context of the manuallyField
+     *
      * @return Context (text) of the manuellyField
      */
-    private String getTextManuallyField(){
+    private String getTextManuallyField() {
         return this.manuallyField.getText();
     }
 
@@ -117,12 +119,12 @@ public class BlockWebSiteController implements Initializable {
      * The method will be called if the user clicks on the button submit
      */
     @FXML
-    public void onActionSubmit(){
-     verifySubmitClick();
-     if(this.immediatelyCheckBox.isSelected())
-         blockWebSiteImmediately();
-     else
-         blockWebSiteManually();
+    public void onActionSubmit() {
+        verifySubmitClick();
+        if (this.immediatelyCheckBox.isSelected())
+            blockWebSiteImmediately();
+        else
+            blockWebSiteManually();
     }
 
     /**
@@ -135,48 +137,49 @@ public class BlockWebSiteController implements Initializable {
     /**
      * Block the website manually
      */
-    private void blockWebSiteManually(){
+    private void blockWebSiteManually() {
         long hoursInt = 0;
         try {
             hoursInt = Long.parseLong(getTextManuallyField());
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.err.println(e.getMessage());
         }
         IOHosts.checkUsersUrlInput(getTextUrlField());
-        IOJson.saveManualData(getTextUrlField(),hoursInt);
+        IOJson.saveManualData(getTextUrlField(), hoursInt);
     }
 
     /**
      * Check if button immediately and textfield manually are used
      * If both are used Exception will be thrown
      */
-    private void verifySubmitClick(){
-        if(!(urlFieldContainsCharacters()))
+    private void verifySubmitClick() {
+        if (!(urlFieldContainsCharacters()))
             throw new TextFieldDoesNotContainCharactersException("The URL text field needs must contain website url");
-        if(this.immediatelyCheckBox.isSelected() && manuallyFieldContainsCharacters())
+        if (this.immediatelyCheckBox.isSelected() && manuallyFieldContainsCharacters())
             throw new ElementsCollisionException("You can only block a website manually or immediately");
-        if(this.immediatelyCheckBox.isSelected() && manuallyFieldContainsCharacters() && urlFieldContainsCharacters())
+        if (this.immediatelyCheckBox.isSelected() && manuallyFieldContainsCharacters() && urlFieldContainsCharacters())
             throw new ElementsCollisionException("You can only block a website manually or immediately");
-        if(!(this.immediatelyCheckBox.isSelected()) && !manuallyFieldContainsCharacters() && !urlFieldContainsCharacters())
+        if (!(this.immediatelyCheckBox.isSelected()) && !manuallyFieldContainsCharacters() && !urlFieldContainsCharacters())
             throw new ElementsNotSelectedException("You need to select manuel or immediate button and type URL of the website you want to block");
-        if(urlFieldContainsCharacters() && !(this.immediatelyCheckBox.isSelected()) && !(manuallyFieldContainsCharacters()))
+        if (urlFieldContainsCharacters() && !(this.immediatelyCheckBox.isSelected()) && !(manuallyFieldContainsCharacters()))
             throw new ElementsNotSelectedException("You need to use manuel or immediate button to block the website");
     }
 
     /**
      * Check if the urlField contains characters
+     *
      * @return boolean true if the urlField contains characters else false
      */
-    private boolean urlFieldContainsCharacters(){
+    private boolean urlFieldContainsCharacters() {
         return !(this.urlField.getText() == null || this.urlField.getText().trim().isEmpty());
     }
 
     /**
      * Check if the manuallyField contains characters
+     *
      * @return boolean true if the manuallyField contains characters else false
      */
-    private boolean manuallyFieldContainsCharacters(){
+    private boolean manuallyFieldContainsCharacters() {
         return !(this.manuallyField.getText() == null || this.manuallyField.getText().trim().isEmpty());
     }
 }

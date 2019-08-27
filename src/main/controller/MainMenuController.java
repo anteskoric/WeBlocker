@@ -35,12 +35,15 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.HistoryDataExtractor;
+import logic.WebsiteBlocker;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static logic.WebsiteBlocker.checkWebsiteBlockage;
 
 /**
  * MainMenuController is a class for controlling the fxml MainMenu.fxml
@@ -96,7 +99,7 @@ public class MainMenuController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setTopTenVisitedSites();
-        //checkWebsiteBlockage();
+        checkWebsiteBlockage();
     }
 
     /**
@@ -108,20 +111,21 @@ public class MainMenuController implements Initializable {
 
         List<WebSiteVisit> websites = HistoryDataExtractor.selectTopTenWebsites();
         long totalTime = getTotalVisitTime(websites);
-        for (WebSiteVisit website: websites) {
-            pieData.add(new PieChart.Data(website.getTitle(),(website.getVisitDuration() * 100) / totalTime));
+        for (WebSiteVisit website : websites) {
+            pieData.add(new PieChart.Data(website.getTitle(), (website.getVisitDuration() * 100) / totalTime));
         }
         topTenSitesChart.setData(pieData);
     }
 
     /**
      * Get total visit time of the top ten visited websites
+     *
      * @param websites The list of the top ten visited websites
      * @return total visited time
      */
     private long getTotalVisitTime(List<WebSiteVisit> websites) {
         long totalVisitTime = 0;
-        for (WebSiteVisit website: websites) {
+        for (WebSiteVisit website : websites) {
             totalVisitTime = Math.addExact(totalVisitTime, website.getVisitDuration());
         }
         return totalVisitTime;
@@ -132,7 +136,7 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     public void onActionWebsiteHistory() {
-        changeStage("/fxml/WebHistory.fxml","Web history");
+        changeStage("/fxml/WebHistory.fxml", "Web history");
     }
 
     /**
@@ -140,7 +144,7 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     public void onActionBlockWebsite() {
-        changeStage("/fxml/BlockWebSite.fxml","Block Website");
+        changeStage("/fxml/BlockWebSite.fxml", "Block Website");
     }
 
     /**
@@ -148,15 +152,15 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     public void onActionBlockedAndUnblock() {
-        changeStage("/fxml/BlockedAndUnblock.fxml","Blocked And Unblocked");
+        changeStage("/fxml/BlockedAndUnblock.fxml", "Blocked And Unblocked");
     }
 
     /**
      * The method will be called when the button Cookies is clicked
      */
     @FXML
-    public void onActionCookies(){
-        changeStage("/fxml/Cookies.fxml","Cookies");
+    public void onActionCookies() {
+        changeStage("/fxml/Cookies.fxml", "Cookies");
     }
 
     /**
@@ -164,11 +168,12 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     public void onActionContact() {
-        changeStage("/fxml/Contact.fxml","Contact");
+        changeStage("/fxml/Contact.fxml", "Contact");
     }
 
     /**
      * The method changeStage creates new Stage from the given fxml file
+     *
      * @param path Path of fxml file
      */
     private void changeStage(String path, String title) {
