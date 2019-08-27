@@ -100,14 +100,20 @@ public class CookiesController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initializeTableView();
+        addElementsIntoTableView();
+    }
+
+    /**
+     * Initializes the TableView
+     */
+    private void initializeTableView() {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         hostKeyColumn.setCellValueFactory(new PropertyValueFactory<>("hostKey"));
         hasExpiredColumn.setCellValueFactory(new PropertyValueFactory<>("hasExpired"));
         creationDateColumn.setCellValueFactory(new PropertyValueFactory<>("creationTime"));
         expiresDateColumn.setCellValueFactory(new PropertyValueFactory<>("expiresTime"));
         lastAccessColumn.setCellValueFactory(new PropertyValueFactory<>("lastAccessTime"));
-
-        addElementsIntoTableView();
     }
 
     /**
