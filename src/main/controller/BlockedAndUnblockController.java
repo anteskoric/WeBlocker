@@ -1,4 +1,5 @@
 package controller;
+
 // The MIT License
 //
 //Copyright (c) 2010-2019 Google, Inc. http://angularjs.org
@@ -21,9 +22,6 @@ package controller;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import logic.IOHosts;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,8 +56,7 @@ public class BlockedAndUnblockController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<String> blockedWebsitesList = FXCollections.observableArrayList(IOHosts.getBlockedSites());
-        this.blockedWebsites.setItems(blockedWebsitesList);
+        addElementsIntoListView();
     }
 
     /**
@@ -68,6 +65,16 @@ public class BlockedAndUnblockController implements Initializable {
      */
     @FXML
     public void onActionBlockedWebsites(){
-        IOHosts.unblockSite(blockedWebsites.getSelectionModel().getSelectedItem(),"C:\\Users\\agrok\\Desktop\\WeBlocker\\src\\main\\files\\tempFile.txt");
+        String tempFilePath = "C:\\Users\\agrok\\Desktop\\WeBlocker\\src\\main\\files\\tempFile.txt";
+        IOHosts.unblockSite(blockedWebsites.getSelectionModel().getSelectedItem(),tempFilePath);
+        addElementsIntoListView();
+    }
+
+    /**
+     * The addElementsInto ListView adds all blocked sites from the file hosts into the ListView
+     */
+    private void addElementsIntoListView() {
+        ObservableList<String> blockedWebsitesList = FXCollections.observableArrayList(IOHosts.getBlockedSites());
+        this.blockedWebsites.setItems(blockedWebsitesList);
     }
 }
