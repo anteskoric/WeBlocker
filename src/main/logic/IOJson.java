@@ -53,12 +53,12 @@ public final class IOJson {
         Gson gson = new GsonBuilder().create();
         LocalDateTime currentTime = LocalDateTime.now(ZoneId.of("Europe/Berlin"));
 
-        if(hours > 168)
-            throw new IllegalArgumentException("The week contains 168 hours");
+        if(hours > 24)
+            throw new IllegalArgumentException("The day contains 24 hours");
 
         long seconds = DateManager.getSecondsFromUTF(currentTime);
 
-        List<WebsiteVisitTracer> tracers = IOJson.getData();
+        List<WebsiteVisitTracer> tracers = IOJson.getJsonObjects();
         tracers.add(new WebsiteVisitTracer(url,hours,seconds));
         try(FileWriter writer = new FileWriter("C:\\Users\\agrok\\Desktop\\WeBlocker\\src\\main\\files\\VisitTracer.json")) {
             gson.toJson(tracers,writer);
@@ -71,7 +71,7 @@ public final class IOJson {
      * Get data from the json file and store it into list
      * @return list of the objects from the json file
      */
-    private static List<WebsiteVisitTracer> getData() {
+    public static List<WebsiteVisitTracer> getJsonObjects() {
         List<WebsiteVisitTracer> tracers = new ArrayList<>();
         try(FileReader reader = new FileReader("C:\\Users\\agrok\\Desktop\\WeBlocker\\src\\main\\files\\VisitTracer.json")){
             WebsiteVisitTracer[] tracersArray = new Gson().fromJson(reader,WebsiteVisitTracer[].class);
@@ -80,5 +80,18 @@ public final class IOJson {
             System.err.println(a.getMessage());
         }
         return tracers;
+    }
+
+    /**
+     * Overwrites the VisitTracer.json with the objects from the List tracers
+     * @param tracers the List of objects that will be saved in json
+     */
+    public static void overwriteJson(List<WebsiteVisitTracer> tracers){
+        Gson gson = new GsonBuilder().create();
+        try(FileWriter writer = new FileWriter("C:\\Users\\agrok\\Desktop\\WeBlocker\\src\\main\\files\\VisitTracer.json")) {
+            gson.toJson(tracers,writer);
+        }catch (IOException a){
+            System.err.println(a.getMessage());
+        }
     }
 }
