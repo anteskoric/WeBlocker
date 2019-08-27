@@ -24,6 +24,7 @@ package logic;
 
 import database.classes.Term;
 import database.classes.Url;
+import database.classes.WebSiteVisit;
 import interfaces.DataBaseConnector;
 
 import java.sql.Connection;
@@ -56,7 +57,7 @@ public final class HistoryDataExtractor implements DataBaseConnector {
                 String title = resultSet.getString("title");
                 String url = resultSet.getString("url");
                 int visitCount = resultSet.getInt("visit_count");
-                String lastVisit = DateManager.setUnixTime(resultSet.getLong("last_visit_time"));
+                String lastVisit = DateManager.setUTFTime(resultSet.getLong("last_visit_time"));
                 urlList.add(new Url(id,title,url,visitCount,lastVisit));
             }
         }catch (SQLException a){
@@ -70,7 +71,7 @@ public final class HistoryDataExtractor implements DataBaseConnector {
      * Get term from the database history from the table keyword_search_terms
      */
     public static List<Term> selectSearchTerms(){
-        String sqlStatement = "SELECT term, keyword_id, url_id FROM keyword_search_terms;";
+        String sqlStatement = "SELECT term, keyword_id, url_id FROM keyword_search_terms ORDER BY url_id DESC ;";
         List<Term> terms = new ArrayList<>();
 
         try(Connection connect = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
@@ -86,6 +87,43 @@ public final class HistoryDataExtractor implements DataBaseConnector {
             System.err.println(a.getErrorCode());
         }
         return terms;
+    }
+
+    /**
+     * Get top ten websites from the DB history and the tables urls and visits
+     * @return List of the ten visited websites
+     */
+    public static List<WebSiteVisit> selectTopTenWebsites(){
+        String sqlStatement = "SELECT t.title,\n" +
+                "       SUM(t.sum_visit_duration) AS visit_duration\n" +
+                "  FROM (\n" +
+                "           SELECT SUM(v.visit_duration) AS sum_visit_duration,\n" +
+                "                  u.title\n" +
+                "             FROM urls u,\n" +
+                "                  visits v\n" +
+                "            WHERE u.id = v.url\n" +
+                "            GROUP BY u.id\n" +
+                "            ORDER BY SUM(visit_duration) DESC\n" +
+                "       )\n" +
+                "       AS t\n" +
+                " GROUP BY t.title\n" +
+                " ORDER BY visit_duration DESC\n" +
+                " LIMIT 10;\n";
+
+        List<WebSiteVisit> websites = new ArrayList<>();
+        try(Connection connect = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
+            ResultSet resultSet = connect.createStatement().executeQuery(sqlStatement)){
+            while (resultSet.next()){
+                String title = resultSet.getString("title");
+                long visitDuration = resultSet.getLong("visit_duration");
+                String hoursMinutes = DateManager.setHoursMinutes(resultSet.getLong("visit_duration"));
+                websites.add(new WebSiteVisit(title,visitDuration,hoursMinutes));
+            }
+        }catch (SQLException a){
+            //TODO make into logs
+            System.err.println(a.getErrorCode());
+        }
+        return websites;
     }
 
     /**
