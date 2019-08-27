@@ -129,10 +129,10 @@ public class WebHistoryController implements Initializable {
         elementsView.setItems(FXCollections.observableArrayList(HistoryDataExtractor.selectSearchHistory()));
     }
 
-    @FXML
     /**
      * Loads new FXM file TermsHistory.fxml
      */
+    @FXML
     private void onActionSearchedTerms(){
         try{
             Stage currentStage = (Stage) this.elementsView.getScene().getWindow();
