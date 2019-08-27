@@ -53,9 +53,9 @@ public final class CookiesDataExtractor implements DataBaseConnector {
                 String hostKey = resultSet.getString("host_key");
                 int hasExpires = resultSet.getInt("has_expires");
                 long creationUtc = resultSet.getLong("creation_utc");
-                String creationTime = DateManager.setUnixTime(resultSet.getLong("creation_utc"));
-                String expiresTime = DateManager.setUnixTime(resultSet.getLong("expires_utc"));
-                String lastAccessTime = DateManager.setUnixTime(resultSet.getLong("last_access_utc"));
+                String creationTime = DateManager.setUTFTime(resultSet.getLong("creation_utc"));
+                String expiresTime = DateManager.setUTFTime(resultSet.getLong("expires_utc"));
+                String lastAccessTime = DateManager.setUTFTime(resultSet.getLong("last_access_utc"));
                 cookieList.add(new Cookie(name,hostKey,hasExpires,creationUtc,creationTime,expiresTime,lastAccessTime));
             }
         }catch (SQLException a){
