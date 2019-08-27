@@ -62,10 +62,10 @@
         </VBox>
         <Pane layoutX="149.0" prefHeight="450.0" prefWidth="650.0">
             <children>
-                <PieChart layoutY="58.0" prefHeight="391.0" prefWidth="650.0" />
-                <Label layoutX="14.0" layoutY="6.0" prefHeight="44.0" prefWidth="284.0" text="Top used websites:">
+                <PieChart fx:id="topTenSitesChart" layoutY="-1.0" prefHeight="457.0" prefWidth="650.0" />
+                <Label layoutX="14.0" layoutY="6.0" prefHeight="44.0" prefWidth="169.0" text="Top ten used websites:">
                     <font>
-                        <Font name="Nirmala UI" size="18.0" />
+                        <Font name="Nirmala UI" size="16.0" />
                     </font>
                 </Label>
             </children>

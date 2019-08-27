@@ -17,7 +17,7 @@
                         <Font name="Nirmala UI" size="18.0" />
                     </font>
                 </Label>
-                <Label layoutX="27.0" layoutY="74.0" prefHeight="129.0" prefWidth="597.0" text="If you want to block the website immediately use the immediately option. &#10;Use the manuelly option if you want to block the website weekly. &#10;If you use the manuelly option the website will be blocked if your average&#10;weekly usage is greater then your manuell input. ">
+                <Label layoutX="27.0" layoutY="74.0" prefHeight="149.0" prefWidth="597.0" text="If you want to block the website immediately use the immediately option. &#10;If you use the manually option, the website will be blocked in seven days, &#10;if your average daily usage is greater then your input also the daily average &#10;usage of the website in the next seven days.&#10;When using the maually option, input exclusive the URL of the website&#10; you visited.">
                     <font>
                         <Font size="16.0" />
                     </font>
