@@ -30,6 +30,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,46 +53,47 @@ public final class IOHosts {
     }
 
     /**
-     * The method blockSite is used for blocking access to websites
+     * The method getHostName is used for getting host name from users input
+     *
      * @param url url of the website for example www.example.com or https://www.example.com/
      * @throws IllegalArgumentException if user does not input url of a website
      */
 
-    public static void blockSite(String url) {
+    public static String getHostName(String url) {
         String hostName = null;
+        //TODO add regex "^https://.+\\.com.+"
         try {
             String wwwPattern = "^www\\..+\\.com$";
             String protocolPattern = "^https://www\\..+\\.com.+";
-            if(url.matches(wwwPattern)) {
+            if (url.matches(wwwPattern)) {
                 hostName = new URL("https://" + url).getHost().substring(4);
-            }else if(url.matches(protocolPattern)){
-                    hostName = new URL(url).getHost().substring(4);
-            }else{
+            } else if (url.matches(protocolPattern)) {
+                hostName = new URL(url).getHost().substring(4);
+            } else {
                 //TODO popup or into logs
                 throw new IllegalArgumentException("Please use URL of the website");
             }
-        }catch (IOException a){
+        } catch (IOException a) {
             //TODO logs
-            System.err.println(a);
+            System.err.println(a.getMessage());
         }
-        writeIntoHost(hostName);
+        return hostName;
     }
 
     /**
      * Unblocks website that has been blocked
      *
-     * @param url URL of the website
+     * @param url          URL of the website
      * @param tempFilePath the temporal file that will be used for storing text
      * @throws IllegalArgumentException if the website is not blocked
      */
-
     public static void unblockSite(String url, String tempFilePath) {
         String hostName = null;
         try {
             hostName = new URL("https://" + url).getHost();
         } catch (MalformedURLException a) {
             //TODO change this into logs
-            System.err.println(a);
+            System.err.println(a.getMessage());
         }
 
         if (!checkIfInTheFile(hostName))
@@ -111,13 +113,13 @@ public final class IOHosts {
         try {
             return Files.lines(Path.of(HOSTS_FILE), StandardCharsets.ISO_8859_1)
                     .parallel()
-                    .filter(x -> x.matches("^127.0.0.1\\s+www..+"))
+                    .filter(x -> x.matches("^0.0.0.0\\s+www..+"))
                     .map(x -> x.split("\\s+"))
                     .map(x -> x[1])
                     .collect(Collectors.toList());
         } catch (IOException a) {
             //TODO change into logs
-            System.err.println(a);
+            System.err.println(a.getMessage());
         }
         return List.of();
     }
@@ -129,6 +131,7 @@ public final class IOHosts {
      */
     //TODO make this method work for windows
     public static void changeRights(String path) {
+        //TODO use the class FilePermission
         try {
             Runtime.getRuntime().exec("icacls " + path + "/grant Users:F");
         } catch (IOException a) {
@@ -173,7 +176,7 @@ public final class IOHosts {
             writer.flush();
         } catch (IOException a) {
             //TODO change into logs
-            System.err.println(a);
+            System.err.println(a.getMessage());
         }
     }
 
@@ -184,29 +187,40 @@ public final class IOHosts {
      */
     //TODO Antivirus does not allow this method
     private static void saveIntoHosts(String tempFilePath) {
+        File hostsFile = new File(HOSTS_FILE);
         try (BufferedReader reader = new BufferedReader(new FileReader(tempFilePath));
-             FileOutputStream writer = new FileOutputStream(HOSTS_FILE)) {
+             //TODO remove comment
+             //new FileWriter(hostsFile,false) throws Exception,
+             //because of the append in the FileOutputStream.opens method,
+             //if append is set to true the method will work
+             //else if append is set to false it will throw a Exception
+             //It does not work because I dont have permission to the windows folder
+             BufferedWriter writer = new BufferedWriter(new FileWriter(hostsFile, false))) {
             String currentLine;
             while ((currentLine = reader.readLine()) != null) {
                 currentLine = currentLine.trim() + System.getProperty("line.separator");
-                writer.write(currentLine.getBytes());
+                writer.write(currentLine);
             }
             writer.flush();
+            //TODO remove the code below
         } catch (IOException a) {
             //TODO change into logs
-            System.err.println(a);
+            System.out.println(a.toString());
+            StackTraceElement[] stackTraceElements = a.getStackTrace();
+            Arrays.stream(stackTraceElements).forEach(System.out::println);
         }
     }
 
     /**
      * The method writeIntoHosts writes String into hosts file
-     * @param hostName String to be writen into file
-     * @throws NullPointerException If the input is null the exception will be thrown
+     *
+     * @param hostName String to be written into file
+     * @throws NullPointerException        If the input is null the exception will be thrown
      * @throws URLAlreadyExistingException If the String is already written into the file the exception will be thrown
      */
 
-    private static void writeIntoHost(String hostName) {
-        if(hostName == null){
+    public static void writeIntoHost(String hostName) {
+        if (hostName == null) {
             //TODO make into logs
             throw new NullPointerException();
         }
@@ -218,11 +232,27 @@ public final class IOHosts {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(HOSTS_FILE, true))) {
             writer.newLine();
-            writer.write("127.0.0.1 " + "www." + hostName + " " + hostName);
+            writer.write("0.0.0.0 " + "www." + hostName + " " + hostName);
             writer.flush();
         } catch (IOException a) {
             //TODO change this into logs
-            System.err.println(a);
+            System.err.println(a.getMessage());
+        }
+    }
+
+    /**
+     * Check if users input (URL) matches the regex
+     * There are two matches for users input protocolPattern for example https://www.google.com/
+     * and easyProtocolPattern for example https://google.com/
+     * @param url users input
+     * @throws IllegalArgumentException if users input doesnt match one of the regexs
+     */
+    public static void checkUsersUrlInput(String url) {
+        String protocolPattern = "^https://www\\..+\\.com(.*)";
+        String easyProtocolPattern = "^https://.+\\.com(.*)";
+        if (!url.matches(protocolPattern) && !url.matches(easyProtocolPattern)) {
+            //TODO popup or into logs
+            throw new IllegalArgumentException("Please use URL of the website");
         }
     }
 }
