@@ -37,6 +37,12 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+    //TODO make better README
+    //TODO add logs!
+    //TODO design color
+    //TODO write tests
+    //TODO change licence
+    //TODO write better javadoc code (add html tags to existing comments)
 
     /**
      * The main entry point for all JavaFX applications.

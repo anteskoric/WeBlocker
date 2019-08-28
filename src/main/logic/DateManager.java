@@ -32,36 +32,40 @@ import java.util.concurrent.TimeUnit;
  * @author Ante Skoric
  */
 public final class DateManager {
-    private DateManager(){}
+    private DateManager() {
+    }
 
     /**
      * Gets the Date and Time from 1601/1/1 plus the passed microseconds
      * Added 7200 seconds for Germany/Berlin time zone
+     *
      * @param microseconds the amount of microseconds we want to add to the year
      * @return new date
      */
-    public static String setUTFTime(Long microseconds){
-        LocalDateTime startingPoint = LocalDateTime.of(1601, Month.JANUARY,1,0,0);
+    public static String setUTFTime(Long microseconds) {
+        LocalDateTime startingPoint = LocalDateTime.of(1601, Month.JANUARY, 1, 0, 0);
         long seconds = TimeUnit.MICROSECONDS.toSeconds(microseconds);
         return setEuropeanFormat(startingPoint.plus(Duration.ofSeconds(seconds + 7200)));
     }
 
     /**
      * Get Date and Time in a form of String in european form yyyy/mm/dd
+     *
      * @param time The LocalDateTime we want to format
      * @return Date and Time in a String form
      */
-    public static String setEuropeanFormat(LocalDateTime time){
+    public static String setEuropeanFormat(LocalDateTime time) {
         return time.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
     }
 
     /**
      * Set seconds into form of a string with hours and minutes
+     *
      * @param microseconds microseconds
      * @return String
      */
-    public static String setHoursMinutes(Long microseconds){
-        LocalTime startTime = LocalTime.of(0,0);
+    public static String setHoursMinutes(Long microseconds) {
+        LocalTime startTime = LocalTime.of(0, 0);
         long seconds = TimeUnit.MICROSECONDS.toSeconds(microseconds);
         LocalTime finalTime = startTime.plusSeconds(seconds);
         return finalTime.format(DateTimeFormatter.ofPattern("HH:mm"));
@@ -69,16 +73,18 @@ public final class DateManager {
 
     /**
      * Calculate the seconds between 1601 and endTime
+     *
      * @param endTime LocalDateTime
      * @return long, seconds
      */
     public static long getSecondsFromUTF(LocalDateTime endTime) {
-        LocalDateTime unixStartTime = LocalDateTime.of(1601, Month.JANUARY,1,0,0);
-        return Duration.between(unixStartTime,endTime).toSeconds();
+        LocalDateTime unixStartTime = LocalDateTime.of(1601, Month.JANUARY, 1, 0, 0);
+        return Duration.between(unixStartTime, endTime).toSeconds();
     }
 
     /**
      * Gets the value of microseconds from hours
+     *
      * @param hours hours that will be switched into microseconds
      * @return microseconds
      */
@@ -88,6 +94,7 @@ public final class DateManager {
 
     /**
      * Gets the value of microseconds from seconds
+     *
      * @param seconds seconds that will be switched into microseconds
      * @return microseconds
      */

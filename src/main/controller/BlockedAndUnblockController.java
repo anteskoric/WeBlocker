@@ -64,9 +64,9 @@ public class BlockedAndUnblockController implements Initializable {
      * The method calls IOHosts.unblockSite and unblocks the website that the user clicked on
      */
     @FXML
-    public void onActionBlockedWebsites(){
+    public void onActionBlockedWebsites() {
         String tempFilePath = "C:\\Users\\agrok\\Desktop\\WeBlocker\\src\\main\\files\\tempFile.txt";
-        IOHosts.unblockSite(blockedWebsites.getSelectionModel().getSelectedItem(),tempFilePath);
+        IOHosts.unblockSite(blockedWebsites.getSelectionModel().getSelectedItem(), tempFilePath);
         addElementsIntoListView();
     }
 

@@ -26,6 +26,7 @@ import java.util.Objects;
 
 /**
  * The class Cookie represents the data structure from the table cookies of the database history
+ *
  * @author Ante Skoric
  */
 public class Cookie {
@@ -66,7 +67,7 @@ public class Cookie {
      */
     private String lastAccessTime;
 
-    public Cookie(String name, String hostKey, int hasExpired, Long creationUtc, String creationTime, String expiresTime, String lastAccessTime){
+    public Cookie(String name, String hostKey, int hasExpired, Long creationUtc, String creationTime, String expiresTime, String lastAccessTime) {
         this.name = name;
         this.hostKey = hostKey;
         this.hasExpired = hasExpired;
@@ -139,7 +140,6 @@ public class Cookie {
     }
 
     /**
-     *
      * @param o Object to be verified
      * @return boolean true if the objects are equal else false
      */
@@ -159,6 +159,7 @@ public class Cookie {
 
     /**
      * Generates hash code of the object
+     *
      * @return hash code of the object
      */
     @Override

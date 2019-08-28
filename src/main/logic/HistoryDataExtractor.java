@@ -36,31 +36,33 @@ import java.util.List;
 
 /**
  * SQLite scripts imbedded into Java for finding and updating data in the Google Chrome history database
+ *
  * @author Ante Skoric
  */
 
 public final class HistoryDataExtractor implements DataBaseConnector {
 
-    private HistoryDataExtractor(){}
+    private HistoryDataExtractor() {
+    }
 
     /**
      * Get title, url, visit count and last visited time from the database history from the table urls
      */
-    public static List<Url> selectSearchHistory(){
+    public static List<Url> selectSearchHistory() {
         String sqlStatement = "SELECT id, title, url, visit_count, last_visit_time FROM urls ORDER BY last_visit_time DESC;";
         List<Url> urlList = new ArrayList<>();
 
         try (Connection connect = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
-             ResultSet resultSet = connect.createStatement().executeQuery(sqlStatement)){
-            while (resultSet.next()){
+             ResultSet resultSet = connect.createStatement().executeQuery(sqlStatement)) {
+            while (resultSet.next()) {
                 Integer id = resultSet.getInt("id");
                 String title = resultSet.getString("title");
                 String url = resultSet.getString("url");
                 int visitCount = resultSet.getInt("visit_count");
                 String lastVisit = DateManager.setUTFTime(resultSet.getLong("last_visit_time"));
-                urlList.add(new Url(id,title,url,visitCount,lastVisit));
+                urlList.add(new Url(id, title, url, visitCount, lastVisit));
             }
-        }catch (SQLException a){
+        } catch (SQLException a) {
             //TODO make into logs
             System.err.println(a.getErrorCode());
         }
@@ -70,19 +72,19 @@ public final class HistoryDataExtractor implements DataBaseConnector {
     /**
      * Get term from the database history from the table keyword_search_terms
      */
-    public static List<Term> selectSearchTerms(){
+    public static List<Term> selectSearchTerms() {
         String sqlStatement = "SELECT term, keyword_id, url_id FROM keyword_search_terms ORDER BY url_id DESC ;";
         List<Term> terms = new ArrayList<>();
 
-        try(Connection connect = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
-            ResultSet resultSet = connect.createStatement().executeQuery(sqlStatement)){
-            while (resultSet.next()){
+        try (Connection connect = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
+             ResultSet resultSet = connect.createStatement().executeQuery(sqlStatement)) {
+            while (resultSet.next()) {
                 String term = resultSet.getString("term");
                 Long keywordId = resultSet.getLong("keyword_id");
                 Long urlId = resultSet.getLong("url_id");
-                terms.add(new Term(term,keywordId,urlId));
+                terms.add(new Term(term, keywordId, urlId));
             }
-        }catch (SQLException a){
+        } catch (SQLException a) {
             //TODO make into logs
             System.err.println(a.getErrorCode());
         }
@@ -91,9 +93,10 @@ public final class HistoryDataExtractor implements DataBaseConnector {
 
     /**
      * Get top ten websites from the DB history and the tables urls and visits
+     *
      * @return List of the ten visited websites
      */
-    public static List<WebSiteVisit> selectTopTenWebsites(){
+    public static List<WebSiteVisit> selectTopTenWebsites() {
         String sqlStatement = "SELECT t.title,\n" +
                 "       SUM(t.sum_visit_duration) AS visit_duration\n" +
                 "  FROM (\n" +
@@ -111,15 +114,15 @@ public final class HistoryDataExtractor implements DataBaseConnector {
                 " LIMIT 10;\n";
 
         List<WebSiteVisit> websites = new ArrayList<>();
-        try(Connection connect = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
-            ResultSet resultSet = connect.createStatement().executeQuery(sqlStatement)){
-            while (resultSet.next()){
+        try (Connection connect = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
+             ResultSet resultSet = connect.createStatement().executeQuery(sqlStatement)) {
+            while (resultSet.next()) {
                 String title = resultSet.getString("title");
                 long visitDuration = resultSet.getLong("visit_duration");
                 String hoursMinutes = DateManager.setHoursMinutes(resultSet.getLong("visit_duration"));
-                websites.add(new WebSiteVisit(title,visitDuration,hoursMinutes));
+                websites.add(new WebSiteVisit(title, visitDuration, hoursMinutes));
             }
-        }catch (SQLException a){
+        } catch (SQLException a) {
             //TODO make into logs
             System.err.println(a.getErrorCode());
         }
@@ -128,19 +131,20 @@ public final class HistoryDataExtractor implements DataBaseConnector {
 
     /**
      * Delete search history from the database history table urls
-     * @param id Is the integer that specifies url in the database
+     *
+     * @param id    Is the integer that specifies url in the database
      * @param title Is string that represents title of the url
      */
-    public static void deleteSearchHistory(int id, String url, String title){
+    public static void deleteSearchHistory(int id, String url, String title) {
         String sqlStatement = "DELETE FROM urls WHERE id = ? AND url = ? AND title = ?";
 
-        try(Connection connection = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement)) {
-            preparedStatement.setInt(1,id);
-            preparedStatement.setString(2,url);
-            preparedStatement.setString(3,title);
+        try (Connection connection = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement)) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, url);
+            preparedStatement.setString(3, title);
             preparedStatement.execute();
-        }catch (SQLException a){
+        } catch (SQLException a) {
             //TODO make into logs
             System.err.println(a.getErrorCode());
         }
@@ -148,19 +152,20 @@ public final class HistoryDataExtractor implements DataBaseConnector {
 
     /**
      * Delete searched terms from the database history table keyword_search_terms
+     *
      * @param keyWordId is integer that represents id for the keyword
-     * @param urlId is integer that represents id for the url
-     * @param term is string that represents the term
+     * @param urlId     is integer that represents id for the url
+     * @param term      is string that represents the term
      */
-    public static void deleteSearchedTerms(Long keyWordId, Long urlId, String term){
+    public static void deleteSearchedTerms(Long keyWordId, Long urlId, String term) {
         String sqlStatement = "DELETE FROM keyword_search_terms WHERE keyword_id = ? AND url_id = ? AND term = ?";
-        try(Connection connection = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement)) {
-            preparedStatement.setLong(1,keyWordId);
-            preparedStatement.setLong(2,urlId);
-            preparedStatement.setString(3,term);
+        try (Connection connection = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement)) {
+            preparedStatement.setLong(1, keyWordId);
+            preparedStatement.setLong(2, urlId);
+            preparedStatement.setString(3, term);
             preparedStatement.execute();
-        }catch (SQLException a){
+        } catch (SQLException a) {
             //TODO make into logs
             System.err.println(a.getErrorCode());
         }
@@ -172,10 +177,10 @@ public final class HistoryDataExtractor implements DataBaseConnector {
     public static void deleteAllHistory() {
         String sqlStatement = "DELETE FROM urls";
 
-        try(Connection connection = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement)) {
+        try (Connection connection = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement)) {
             preparedStatement.execute();
-        }catch (SQLException a){
+        } catch (SQLException a) {
             //TODO make into logs
             System.err.println(a.getErrorCode());
         }
@@ -188,10 +193,10 @@ public final class HistoryDataExtractor implements DataBaseConnector {
     public static void deleteAllTerms() {
         String sqlStatement = "DELETE FROM keyword_search_terms";
 
-        try(Connection connection = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement)) {
+        try (Connection connection = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement)) {
             preparedStatement.execute();
-        }catch (SQLException a){
+        } catch (SQLException a) {
             //TODO make into logs
             System.err.println(a.getErrorCode());
         }

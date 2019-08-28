@@ -37,6 +37,7 @@ import java.util.ResourceBundle;
 
 /**
  * CookiesController is a class for controlling the fxml Cookies.fxml
+ *
  * @author Ante Skoric
  */
 public class CookiesController implements Initializable {
@@ -70,7 +71,7 @@ public class CookiesController implements Initializable {
      * If cookie is expired it will display 1 else 0
      */
     @FXML
-    private TableColumn<Cookie,Integer> hasExpiredColumn;
+    private TableColumn<Cookie, Integer> hasExpiredColumn;
 
     /**
      * creationDateColumn is TableColumn of the TableView cookiesTable it displays the creationTime of the object
@@ -126,12 +127,13 @@ public class CookiesController implements Initializable {
 
     /**
      * Deletes cookies from the db and updates the TableView
+     *
      * @throws SelectedColumnIsEmptyException if selected row is empty throws the exception
      */
     @FXML
-    public void onActionTableView(){
+    public void onActionTableView() {
         isColumnNull();
-        CookiesDataExtractor.deleteCookie(cookiesTable.getSelectionModel().getSelectedItem().getCreationUtc(),cookiesTable.getSelectionModel().getSelectedItem().getName(),cookiesTable.getSelectionModel().getSelectedItem().getHostKey());
+        CookiesDataExtractor.deleteCookie(cookiesTable.getSelectionModel().getSelectedItem().getCreationUtc(), cookiesTable.getSelectionModel().getSelectedItem().getName(), cookiesTable.getSelectionModel().getSelectedItem().getHostKey());
         addElementsIntoTableView();
     }
 
@@ -141,7 +143,7 @@ public class CookiesController implements Initializable {
      * At the end the TableView will be updated
      */
     @FXML
-    public void onActionDeleteAll(){
+    public void onActionDeleteAll() {
         Alert deleteConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
         deleteConfirmation.setContentText("Are you sure that you want to delete all rows?");
         deleteConfirmation.showAndWait().filter(response -> response == ButtonType.OK)
@@ -151,10 +153,11 @@ public class CookiesController implements Initializable {
 
     /**
      * Check if the selected row is empty
+     *
      * @throws SelectedColumnIsEmptyException if empty
      */
     private void isColumnNull() {
-        if(cookiesTable.getSelectionModel().isEmpty())
+        if (cookiesTable.getSelectionModel().isEmpty())
             throw new SelectedColumnIsEmptyException("The selected row is empty");
     }
 }

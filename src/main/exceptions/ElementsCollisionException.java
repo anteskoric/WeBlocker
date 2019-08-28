@@ -31,10 +31,11 @@ package exceptions;
  */
 
 public class ElementsCollisionException extends RuntimeException {
-    public ElementsCollisionException(){
+    public ElementsCollisionException() {
         super();
     }
-    public ElementsCollisionException(String message){
+
+    public ElementsCollisionException(String message) {
         super(message);
     }
 }

@@ -71,6 +71,7 @@ public class TermsHistoryController implements Initializable {
      */
     @FXML
     private Button searchHistoryButton;
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -96,7 +97,7 @@ public class TermsHistoryController implements Initializable {
      * If button search terms is clicked the elements in the list view will be updated
      */
     @FXML
-    public void onActionSearchedTerms(){
+    public void onActionSearchedTerms() {
         addTerms();
     }
 
@@ -104,19 +105,20 @@ public class TermsHistoryController implements Initializable {
      * Change the scene to web history
      */
     @FXML
-    public void onActionSearchHistory(){
+    public void onActionSearchHistory() {
         changeScene("/fxml/WebHistory.fxml");
     }
 
     /**
      * Changes the scene of the stage
+     *
      * @param file path of the new fxml scene
      */
     private void changeScene(String file) {
-        try{
+        try {
             Stage currentStage = (Stage) this.termsListView.getScene().getWindow();
             currentStage.setScene(new Scene(FXMLLoader.load(getClass().getResource(file))));
-        }catch (IOException a){
+        } catch (IOException a) {
             //TODO into logs
             System.err.println(a.getMessage());
         }
@@ -124,12 +126,13 @@ public class TermsHistoryController implements Initializable {
 
     /**
      * Deletes the clicked row and the list view is updated
+     *
      * @throws SelectedColumnIsEmptyException if row is empty
      */
     @FXML
-    public void onActionListView(){
+    public void onActionListView() {
         isColumnNull();
-        HistoryDataExtractor.deleteSearchedTerms(termsListView.getSelectionModel().getSelectedItem().getKeywordID(),termsListView.getSelectionModel().getSelectedItem().getUrlId(),termsListView.getSelectionModel().getSelectedItem().getTerm());
+        HistoryDataExtractor.deleteSearchedTerms(termsListView.getSelectionModel().getSelectedItem().getKeywordID(), termsListView.getSelectionModel().getSelectedItem().getUrlId(), termsListView.getSelectionModel().getSelectedItem().getTerm());
         addTerms();
     }
 
@@ -139,7 +142,7 @@ public class TermsHistoryController implements Initializable {
      * At the end the ListView will be updated
      */
     @FXML
-    public void onActionDeleteAll(){
+    public void onActionDeleteAll() {
         Alert deleteConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
         deleteConfirmation.setContentText("Are you sure that you want to delete all rows?");
         deleteConfirmation.showAndWait().filter(response -> response == ButtonType.OK)
@@ -149,10 +152,11 @@ public class TermsHistoryController implements Initializable {
 
     /**
      * Check if the selected row is empty
+     *
      * @throws SelectedColumnIsEmptyException if empty
      */
     private void isColumnNull() {
-        if(this.termsListView.getSelectionModel().isEmpty())
+        if (this.termsListView.getSelectionModel().isEmpty())
             throw new SelectedColumnIsEmptyException("The selected row is empty");
     }
 }

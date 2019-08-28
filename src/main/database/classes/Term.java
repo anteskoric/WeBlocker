@@ -26,6 +26,7 @@ import java.util.Objects;
 
 /**
  * The class Term represents the data structure from the table keyword_search_terms of the database history
+ *
  * @author Ante Skoric
  */
 public class Term {
@@ -45,7 +46,7 @@ public class Term {
      */
     private Long keywordID;
 
-    public Term(String term,Long keywordId,Long urlId){
+    public Term(String term, Long keywordId, Long urlId) {
         this.term = term;
         this.keywordID = keywordId;
         this.urlId = urlId;
@@ -82,7 +83,6 @@ public class Term {
     }
 
     /**
-     *
      * @param o Object to be verified
      * @return boolean true if the objects are equal else false
      */
@@ -98,6 +98,7 @@ public class Term {
 
     /**
      * Generates hash code of the object
+     *
      * @return hash code of the object
      */
     @Override

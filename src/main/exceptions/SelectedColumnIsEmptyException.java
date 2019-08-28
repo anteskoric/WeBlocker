@@ -30,10 +30,11 @@ package exceptions;
  */
 
 public class SelectedColumnIsEmptyException extends RuntimeException {
-    public SelectedColumnIsEmptyException(){
+    public SelectedColumnIsEmptyException() {
         super();
     }
-    public SelectedColumnIsEmptyException(String message){
+
+    public SelectedColumnIsEmptyException(String message) {
         super(message);
     }
 }

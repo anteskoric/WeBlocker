@@ -244,6 +244,7 @@ public final class IOHosts {
      * Check if users input (URL) matches the regex
      * There are two matches for users input protocolPattern for example https://www.google.com/
      * and easyProtocolPattern for example https://google.com/
+     *
      * @param url users input
      * @throws IllegalArgumentException if users input doesnt match one of the regexs
      */

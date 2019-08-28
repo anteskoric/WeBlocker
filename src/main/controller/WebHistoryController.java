@@ -77,13 +77,13 @@ public class WebHistoryController implements Initializable {
      * The titleColumn represents the column of the elementsView where the title of the object is saved
      */
     @FXML
-    private TableColumn<Url,String> titleColumn;
+    private TableColumn<Url, String> titleColumn;
 
     /**
      * The urlColumn represents the column of the elementsView where the url of the object is saved
      */
     @FXML
-    private TableColumn<Url,String> urlColumn;
+    private TableColumn<Url, String> urlColumn;
 
     /**
      * The visitCountColumn represents the column of the elementsView where the visitCounter of the object is saved
@@ -133,11 +133,11 @@ public class WebHistoryController implements Initializable {
      * Loads new FXM file TermsHistory.fxml
      */
     @FXML
-    private void onActionSearchedTerms(){
-        try{
+    private void onActionSearchedTerms() {
+        try {
             Stage currentStage = (Stage) this.elementsView.getScene().getWindow();
             currentStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/fxml/TermsHistory.fxml"))));
-        }catch (IOException a){
+        } catch (IOException a) {
             //TODO into logs
             System.err.println(a);
         }
@@ -145,10 +145,11 @@ public class WebHistoryController implements Initializable {
 
     /**
      * Deletes cookies from the db and updates the TableView
+     *
      * @throws SelectedColumnIsEmptyException if selected row is empty throws the exception
      */
     @FXML
-    public void onActionTableView(){
+    public void onActionTableView() {
         isColumnNull();
         HistoryDataExtractor.deleteSearchHistory(elementsView.getSelectionModel().getSelectedItem().getId(),
                 elementsView.getSelectionModel().getSelectedItem().getUrl(),
@@ -161,7 +162,7 @@ public class WebHistoryController implements Initializable {
      * Initializes the table view to search history and adds elements into it
      */
     @FXML
-    public void onActionSearchHistory(){
+    public void onActionSearchHistory() {
         initializeSearchHistory();
         addElementsIntoTableView();
     }
@@ -172,7 +173,7 @@ public class WebHistoryController implements Initializable {
      * At the end the TableView will be updated
      */
     @FXML
-    public void onActionDeleteAll(){
+    public void onActionDeleteAll() {
         Alert deleteConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
         deleteConfirmation.setContentText("Are you sure that you want to delete all rows?");
         deleteConfirmation.showAndWait().filter(response -> response == ButtonType.OK)
@@ -182,10 +183,11 @@ public class WebHistoryController implements Initializable {
 
     /**
      * Check if the selected row is empty
+     *
      * @throws SelectedColumnIsEmptyException if empty
      */
     private void isColumnNull() {
-        if(elementsView.getSelectionModel().isEmpty())
+        if (elementsView.getSelectionModel().isEmpty())
             throw new SelectedColumnIsEmptyException("The chosen row is empty");
     }
 }

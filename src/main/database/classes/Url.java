@@ -26,6 +26,7 @@ import java.util.Objects;
 
 /**
  * The class Url represents the data structure from the table url of the database history
+ *
  * @author Ante Skoric
  */
 public class Url {
@@ -56,7 +57,7 @@ public class Url {
 
     private String lastVisitTime;
 
-    public Url(Integer id, String title, String url, int visitCount, String lastVisitTime){
+    public Url(Integer id, String title, String url, int visitCount, String lastVisitTime) {
         this.id = id;
         this.title = title;
         this.url = url;
@@ -67,7 +68,9 @@ public class Url {
     /**
      * The field getters
      */
-    public Integer getId(){return this.id;}
+    public Integer getId() {
+        return this.id;
+    }
 
     public String getTitle() {
         return this.title;
@@ -77,11 +80,11 @@ public class Url {
         return this.url;
     }
 
-    public Integer getVisitCount(){
+    public Integer getVisitCount() {
         return this.visitCount;
     }
 
-    public String getLastVisitTime(){
+    public String getLastVisitTime() {
         return this.lastVisitTime;
     }
 
@@ -109,7 +112,6 @@ public class Url {
     }
 
     /**
-     *
      * @param o Object to be verified
      * @return boolean true if the objects are equal else false
      */
@@ -126,6 +128,7 @@ public class Url {
 
     /**
      * Generates hash code of the object
+     *
      * @return hash code of the object
      */
     @Override

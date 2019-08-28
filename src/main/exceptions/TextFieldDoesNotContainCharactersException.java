@@ -29,11 +29,12 @@ package exceptions;
  * @author Ante Skoric
  */
 
-public class TextFieldDoesNotContainCharactersException extends RuntimeException{
-    public TextFieldDoesNotContainCharactersException(){
+public class TextFieldDoesNotContainCharactersException extends RuntimeException {
+    public TextFieldDoesNotContainCharactersException() {
         super();
     }
-    public TextFieldDoesNotContainCharactersException(String message){
+
+    public TextFieldDoesNotContainCharactersException(String message) {
         super(message);
     }
 }

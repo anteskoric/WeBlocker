@@ -26,6 +26,7 @@ import java.util.Objects;
 
 /**
  * The class WebSiteVisit represents the data structure from the table visits and urls of the database history
+ *
  * @author Ante Skoric
  */
 public class WebSiteVisit {
@@ -45,11 +46,12 @@ public class WebSiteVisit {
      */
     private String title;
 
-    public WebSiteVisit(String title, long visitDuration,String hoursMinutes){
+    public WebSiteVisit(String title, long visitDuration, String hoursMinutes) {
         this.title = title;
         this.visitDuration = visitDuration;
         this.hoursMinutes = hoursMinutes;
     }
+
     /**
      * Getter methods
      */
@@ -81,7 +83,6 @@ public class WebSiteVisit {
     }
 
     /**
-     *
      * @param o Object to be verified
      * @return boolean true if the objects are equal else false
      */
@@ -97,6 +98,7 @@ public class WebSiteVisit {
 
     /**
      * Generates hash code of the object
+     *
      * @return hash code of the object
      */
     @Override

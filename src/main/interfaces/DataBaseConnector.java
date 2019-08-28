@@ -28,20 +28,22 @@ import java.sql.SQLException;
 
 /**
  * The interface DataBaseConnector allows us to connect database to be used in the class
+ *
  * @author Ante Skoric
  */
 public interface DataBaseConnector {
 
     /**
      * Connects the database
+     *
      * @param path the Path of the database
      * @return The connection to the database
      */
-    static Connection connect(String path){
+    static Connection connect(String path) {
         Connection connection = null;
-        try{
+        try {
             connection = DriverManager.getConnection(path);
-        }catch (SQLException a){
+        } catch (SQLException a) {
             System.out.println(a.getErrorCode());
         }
         return connection;

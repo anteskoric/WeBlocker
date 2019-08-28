@@ -27,7 +27,7 @@ import java.util.Objects;
 /**
  * The class WebsiteVisitTracker represents the data structure for the json objects
  *
- *  @author Ante Skoric
+ * @author Ante Skoric
  */
 public class WebsiteVisitTracer {
 
@@ -46,7 +46,7 @@ public class WebsiteVisitTracer {
      */
     private long entryCreation;
 
-    public WebsiteVisitTracer(String Url, long hours, long entryCreation){
+    public WebsiteVisitTracer(String Url, long hours, long entryCreation) {
         this.entryCreation = entryCreation;
         this.hours = hours;
         this.Url = Url;
@@ -83,7 +83,6 @@ public class WebsiteVisitTracer {
     }
 
     /**
-     *
      * @param o Object to be verified
      * @return boolean true if the objects are equal else false
      */
@@ -99,6 +98,7 @@ public class WebsiteVisitTracer {
 
     /**
      * Generates hash code of the object
+     *
      * @return hash code of the object
      */
     @Override
@@ -111,6 +111,6 @@ public class WebsiteVisitTracer {
      */
     @Override
     public String toString() {
-        return "Url: " + Url + "Hours: " + hours+ "Entry creation: " + entryCreation;
+        return "Url: " + Url + "Hours: " + hours + "Entry creation: " + entryCreation;
     }
 }

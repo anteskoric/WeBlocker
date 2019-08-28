@@ -29,5 +29,5 @@ package controller;
  * @author Ante Skoric
  */
 
-public class ContactController{
+public class ContactController {
 }

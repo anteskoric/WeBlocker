@@ -31,11 +31,13 @@ import java.util.List;
 
 /**
  * SQLite scripts imbedded into Java for finding and updating data in the Google Chrome cookies database
+ *
  * @author Ante Skoric
  */
 
 public final class CookiesDataExtractor implements DataBaseConnector {
-    private CookiesDataExtractor(){}
+    private CookiesDataExtractor() {
+    }
 
 
     /**
@@ -43,11 +45,11 @@ public final class CookiesDataExtractor implements DataBaseConnector {
      *
      * @return List of cookies from the DB
      */
-    public static List<Cookie> selectCookies(){
+    public static List<Cookie> selectCookies() {
         String sqlStatement = "SELECT name, host_key, has_expires, creation_utc, expires_utc, last_access_utc FROM cookies";
         List<Cookie> cookieList = new ArrayList<>();
-        try(Connection connect = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cookies");
-            ResultSet resultSet = connect.createStatement().executeQuery(sqlStatement)){
+        try (Connection connect = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cookies");
+             ResultSet resultSet = connect.createStatement().executeQuery(sqlStatement)) {
             while (resultSet.next()) {
                 String name = resultSet.getString("name");
                 String hostKey = resultSet.getString("host_key");
@@ -56,9 +58,9 @@ public final class CookiesDataExtractor implements DataBaseConnector {
                 String creationTime = DateManager.setUTFTime(resultSet.getLong("creation_utc"));
                 String expiresTime = DateManager.setUTFTime(resultSet.getLong("expires_utc"));
                 String lastAccessTime = DateManager.setUTFTime(resultSet.getLong("last_access_utc"));
-                cookieList.add(new Cookie(name,hostKey,hasExpires,creationUtc,creationTime,expiresTime,lastAccessTime));
+                cookieList.add(new Cookie(name, hostKey, hasExpires, creationUtc, creationTime, expiresTime, lastAccessTime));
             }
-        }catch (SQLException a){
+        } catch (SQLException a) {
             //TODO make into logs
             System.err.println(a.getErrorCode());
         }
@@ -67,23 +69,24 @@ public final class CookiesDataExtractor implements DataBaseConnector {
 
     /**
      * Delete the cookie from the database Cookie
+     *
      * @param creationUtc the creation utc for the sql statement
-     * @param name the name for the sql statement
-     * @param hostKey the host key for the sql statement
+     * @param name        the name for the sql statement
+     * @param hostKey     the host key for the sql statement
      */
-    public static void deleteCookie(Long creationUtc,String name,String hostKey){
+    public static void deleteCookie(Long creationUtc, String name, String hostKey) {
 
         String sqlStatement = "DELETE FROM cookies WHERE creation_utc = ? AND name = ? AND host_key = ?";
 
-        try(Connection connection = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cookies");
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement)){
-            preparedStatement.setLong(1,creationUtc);
-            preparedStatement.setString(2,name);
-            preparedStatement.setString(3,hostKey);
+        try (Connection connection = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cookies");
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement)) {
+            preparedStatement.setLong(1, creationUtc);
+            preparedStatement.setString(2, name);
+            preparedStatement.setString(3, hostKey);
 
             preparedStatement.execute();
 
-        }catch (SQLException a){
+        } catch (SQLException a) {
             //TODO make into logs
             System.err.println(a.getErrorCode());
         }
@@ -95,10 +98,10 @@ public final class CookiesDataExtractor implements DataBaseConnector {
     public static void deleteAllCookies() {
         String sqlStatement = "DELETE FROM cookies";
 
-        try(Connection connection = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cookies");
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement)){
+        try (Connection connection = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cookies");
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement)) {
             preparedStatement.execute();
-        }catch (SQLException a){
+        } catch (SQLException a) {
             //TODO make into logs
             System.err.println(a.getErrorCode());
         }

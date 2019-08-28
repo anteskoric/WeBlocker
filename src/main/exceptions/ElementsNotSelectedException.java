@@ -29,10 +29,11 @@ package exceptions;
  * @author Ante Skoric
  */
 public class ElementsNotSelectedException extends RuntimeException {
-    public ElementsNotSelectedException(){
+    public ElementsNotSelectedException() {
         super();
     }
+
     public ElementsNotSelectedException(String message) {
-    super(message);
+        super(message);
     }
 }

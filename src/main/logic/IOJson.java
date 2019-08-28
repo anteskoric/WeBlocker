@@ -43,40 +43,43 @@ import java.util.stream.Collectors;
  */
 
 public final class IOJson {
-    private IOJson(){}
+    private IOJson() {
+    }
 
     /**
      * Saves today's date as integer (Unix date timestamp), User's input (website URL) and User's input (average hours per day)
+     *
      * @param url users URL input of the website that should be blocked
      */
     public static void saveManualData(String url, long hours) {
         Gson gson = new GsonBuilder().create();
         LocalDateTime currentTime = LocalDateTime.now(ZoneId.of("Europe/Berlin"));
 
-        if(hours > 24)
+        if (hours > 24)
             throw new IllegalArgumentException("The day contains 24 hours");
 
         long seconds = DateManager.getSecondsFromUTF(currentTime);
 
         List<WebsiteVisitTracer> tracers = IOJson.getJsonObjects();
-        tracers.add(new WebsiteVisitTracer(url,hours,seconds));
-        try(FileWriter writer = new FileWriter("C:\\Users\\agrok\\Desktop\\WeBlocker\\src\\main\\files\\VisitTracer.json")) {
-            gson.toJson(tracers,writer);
-        }catch (IOException a){
+        tracers.add(new WebsiteVisitTracer(url, hours, seconds));
+        try (FileWriter writer = new FileWriter("C:\\Users\\agrok\\Desktop\\WeBlocker\\src\\main\\files\\VisitTracer.json")) {
+            gson.toJson(tracers, writer);
+        } catch (IOException a) {
             System.err.println(a.getMessage());
         }
     }
 
     /**
      * Get data from the json file and store it into list
+     *
      * @return list of the objects from the json file
      */
     public static List<WebsiteVisitTracer> getJsonObjects() {
         List<WebsiteVisitTracer> tracers = new ArrayList<>();
-        try(FileReader reader = new FileReader("C:\\Users\\agrok\\Desktop\\WeBlocker\\src\\main\\files\\VisitTracer.json")){
-            WebsiteVisitTracer[] tracersArray = new Gson().fromJson(reader,WebsiteVisitTracer[].class);
+        try (FileReader reader = new FileReader("C:\\Users\\agrok\\Desktop\\WeBlocker\\src\\main\\files\\VisitTracer.json")) {
+            WebsiteVisitTracer[] tracersArray = new Gson().fromJson(reader, WebsiteVisitTracer[].class);
             tracers = Arrays.stream(tracersArray).collect(Collectors.toList());
-        }catch (IOException a){
+        } catch (IOException a) {
             System.err.println(a.getMessage());
         }
         return tracers;
@@ -84,13 +87,14 @@ public final class IOJson {
 
     /**
      * Overwrites the VisitTracer.json with the objects from the List tracers
+     *
      * @param tracers the List of objects that will be saved in json
      */
-    public static void overwriteJson(List<WebsiteVisitTracer> tracers){
+    public static void overwriteJson(List<WebsiteVisitTracer> tracers) {
         Gson gson = new GsonBuilder().create();
-        try(FileWriter writer = new FileWriter("C:\\Users\\agrok\\Desktop\\WeBlocker\\src\\main\\files\\VisitTracer.json")) {
-            gson.toJson(tracers,writer);
-        }catch (IOException a){
+        try (FileWriter writer = new FileWriter("C:\\Users\\agrok\\Desktop\\WeBlocker\\src\\main\\files\\VisitTracer.json")) {
+            gson.toJson(tracers, writer);
+        } catch (IOException a) {
             System.err.println(a.getMessage());
         }
     }
