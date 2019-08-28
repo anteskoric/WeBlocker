@@ -22,11 +22,14 @@ package logic;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import database.classes.VisitDuration;
 import interfaces.DataBaseConnector;
 import json.classes.WebsiteVisitTracer;
 
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,32 +50,54 @@ public final class WebsiteBlocker implements DataBaseConnector {
      * from VisitTracer.json and calls checkWebsiteUsage
      */
     public static void checkWebsiteBlockage(){
+        List<WebsiteVisitTracer> uncheckedTrackers = new ArrayList<>();
         LocalDateTime currentTime = LocalDateTime.now(ZoneId.of("Europe/Berlin"));
         long currentTimeInSeconds = DateManager.getSecondsFromUTF(currentTime);
         long sevenDaysInSeconds = 604800;
         List<WebsiteVisitTracer> tracers = IOJson.getJsonObjects();
         for (WebsiteVisitTracer tracer : tracers) {
             if(tracer.getEntryCreation() <= (currentTimeInSeconds - sevenDaysInSeconds)){
-                checkWebsiteUsage(tracer,tracers);
+                checkWebsiteUsage(tracer,currentTimeInSeconds);
+            }else{
+                uncheckedTrackers.add(tracer);
             }
         }
+        IOJson.overwriteJson(uncheckedTrackers);
     }
 
     /**
      * The method checkWebsiteUsage checks if the average daily usage of the website is
      *  greater then allowed daily usage (Users input), if it is greater the website will be blocked
      * @param tracer The WebsiteVisitTracer object that should be checked
-     * @param tracers The List of all WebsiteVisitTracer objects that are read from the json file
+     * @param endTime the time in seconds when the last visit is allowed
      */
-    private static void checkWebsiteUsage(WebsiteVisitTracer tracer, List<WebsiteVisitTracer> tracers) {
-        long allowedDailyUsage = tracer.getHours();
-        //TODO sql script
+    private static void checkWebsiteUsage(WebsiteVisitTracer tracer, long endTime) {
+        String sqlStatement = "SELECT SUM(visit_duration) AS visits,\n" +
+                "       url\n" +
+                "  FROM visits\n" +
+                " WHERE url = (\n" +
+                "                 SELECT id\n" +
+                "                   FROM urls\n" +
+                "                  WHERE url = " + tracer.getUrl() + "\n" +
+                "             )\n" +
+                "AND \n" +
+                "       visit_time BETWEEN " + DateManager.getMicrosecondsFromHours(tracer.getHours()) + " AND "+ DateManager.getMicrosecondsFromSeconds(endTime) + "\n" +
+                " GROUP BY url;\n";
+
         long averageDailyUsage = 0;
+        try(Connection connect = DataBaseConnector.connect("jdbc:sqlite:C:\\Users\\agrok\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History");
+            ResultSet resultSet = connect.createStatement().executeQuery(sqlStatement)){
+            while (resultSet.next()){
+                long visits = resultSet.getLong("visits");
+                averageDailyUsage = new VisitDuration(visits).getVisits() / 7;
+            }
+        }catch (SQLException a){
+            //TODO make into logs
+            System.err.println(a.getErrorCode());
+        }
+        long allowedDailyUsageInMicroseconds = DateManager.getMicrosecondsFromHours(tracer.getHours());
 
-
-        if(averageDailyUsage > allowedDailyUsage)
+        if(averageDailyUsage > allowedDailyUsageInMicroseconds)
             IOHosts.writeIntoHost(IOHosts.getHostName(tracer.getUrl()));
-        tracers.remove(tracer);
-        IOJson.overwriteJson(tracers);
     }
 }
