@@ -76,4 +76,22 @@ public final class DateManager {
         LocalDateTime unixStartTime = LocalDateTime.of(1601, Month.JANUARY,1,0,0);
         return Duration.between(unixStartTime,endTime).toSeconds();
     }
+
+    /**
+     * Gets the value of microseconds from hours
+     * @param hours hours that will be switched into microseconds
+     * @return microseconds
+     */
+    public static long getMicrosecondsFromHours(long hours) {
+        return TimeUnit.HOURS.toMicros(hours);
+    }
+
+    /**
+     * Gets the value of microseconds from seconds
+     * @param seconds seconds that will be switched into microseconds
+     * @return microseconds
+     */
+    public static long getMicrosecondsFromSeconds(Long seconds) {
+        return TimeUnit.SECONDS.toMicros(seconds);
+    }
 }
