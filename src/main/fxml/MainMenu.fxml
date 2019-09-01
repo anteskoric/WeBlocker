@@ -9,51 +9,51 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
+<AnchorPane prefHeight="450.0" prefWidth="800.0" stylesheets="@../css/design/main_menu.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
     <children>
-        <VBox prefHeight="450.0" prefWidth="149.0">
+        <VBox fx:id="buttonVBox" prefHeight="450.0" prefWidth="149.0">
             <children>
                 <ButtonBar prefHeight="90.0" prefWidth="149.0">
                     <buttons>
-                        <Button fx:id="websiteHistory" alignment="CENTER" mnemonicParsing="false" onAction="#onActionWebsiteHistory" prefHeight="90.0" prefWidth="138.0" text="Web &#10;History" textAlignment="CENTER">
+                        <Button fx:id="websiteHistory" alignment="BOTTOM_CENTER" cache="true" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onActionWebsiteHistory" prefHeight="90.0" prefWidth="138.0" text="Web History" textAlignment="CENTER">
                             <font>
-                                <Font name="Nirmala UI" size="18.0" />
+                                <Font name="Nirmala UI Bold" size="11.0" />
                             </font>
                         </Button>
                     </buttons>
                 </ButtonBar>
                 <ButtonBar prefHeight="90.0" prefWidth="149.0">
                     <buttons>
-                        <Button fx:id="blockWebsite" alignment="CENTER" minWidth="0.0" mnemonicParsing="false" onAction="#onActionBlockWebsite" prefHeight="90.0" prefWidth="138.0" text="Block &#10;Website" textAlignment="CENTER">
+                        <Button fx:id="blockWebsite" alignment="BOTTOM_CENTER" minWidth="0.0" mnemonicParsing="false" onAction="#onActionBlockWebsite" prefHeight="90.0" prefWidth="138.0" text="Block Website" textAlignment="CENTER">
                             <font>
-                                <Font name="Nirmala UI" size="18.0" />
+                                <Font name="Nirmala UI Bold" size="11.0" />
                             </font>
                         </Button>
                     </buttons>
                 </ButtonBar>
                 <ButtonBar prefHeight="90.0" prefWidth="149.0">
                     <buttons>
-                        <Button fx:id="blockedAndUnblock" alignment="CENTER" mnemonicParsing="false" onAction="#onActionBlockedAndUnblock" prefHeight="90.0" prefWidth="138.0" text="Blocked&#10;&amp; unblock" textAlignment="CENTER">
+                        <Button fx:id="blockedAndUnblock" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#onActionBlockedAndUnblock" prefHeight="90.0" prefWidth="138.0" text="Blocked &amp; unblock" textAlignment="CENTER">
                             <font>
-                                <Font name="Nirmala UI" size="18.0" />
+                                <Font name="Nirmala UI Bold" size="11.0" />
                             </font>
                         </Button>
                     </buttons>
                 </ButtonBar>
                 <ButtonBar prefHeight="90.0" prefWidth="136.0">
                     <buttons>
-                        <Button fx:id="cookies" mnemonicParsing="false" onAction="#onActionCookies" prefHeight="90.0" prefWidth="138.0" text="Cookies">
+                        <Button fx:id="cookies" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#onActionCookies" prefHeight="90.0" prefWidth="138.0" text="Cookies">
                             <font>
-                                <Font name="Nirmala UI" size="18.0" />
+                                <Font name="Nirmala UI Bold" size="11.0" />
                             </font>
                         </Button>
                     </buttons>
                 </ButtonBar>
             <ButtonBar layoutX="10.0" layoutY="280.0" prefHeight="90.0" prefWidth="136.0">
                <buttons>
-                  <Button fx:id="contact1" mnemonicParsing="false" onAction="#onActionContact" prefHeight="90.0" prefWidth="138.0" text="Contact">
+                  <Button fx:id="contact1" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#onActionContact" prefHeight="90.0" prefWidth="138.0" text="Contact">
                      <font>
-                        <Font name="Nirmala UI" size="18.0" />
+                        <Font name="Nirmala UI Bold" size="11.0" />
                      </font>
                   </Button>
                </buttons>
@@ -62,7 +62,7 @@
         </VBox>
         <Pane layoutX="149.0" prefHeight="450.0" prefWidth="650.0">
             <children>
-                <PieChart fx:id="topTenSitesChart" layoutY="-1.0" prefHeight="457.0" prefWidth="650.0" />
+                <PieChart fx:id="topTenSitesChart" layoutX="-1.0" layoutY="-1.0" prefHeight="457.0" prefWidth="650.0" />
                 <Label layoutX="14.0" layoutY="6.0" prefHeight="44.0" prefWidth="169.0" text="Top ten used websites:">
                     <font>
                         <Font name="Nirmala UI" size="16.0" />

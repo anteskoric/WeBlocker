@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TermsHistoryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" stylesheets="@../css/design/web_history.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TermsHistoryController">
    <children>
       <Pane layoutX="107.0" prefHeight="450.0" prefWidth="543.0">
          <children>
@@ -23,22 +24,26 @@
             <Button fx:id="deleteAllButton" layoutX="422.0" layoutY="28.0" mnemonicParsing="false" onAction="#onActionDeleteAll" prefHeight="29.0" prefWidth="89.0" text="Delete all" />
          </children>
       </Pane>
-      <VBox prefHeight="450.0" prefWidth="107.0">
+      <VBox fx:id="webHistoryVBox" prefHeight="450.0" prefWidth="107.0">
          <children>
             <ButtonBar prefHeight="80.0" prefWidth="200.0">
                <buttons>
-                  <Button fx:id="searchHistoryButton" alignment="CENTER" mnemonicParsing="false" onAction="#onActionSearchHistory" prefHeight="80.0" prefWidth="111.0" text="Search&#10;History" textAlignment="CENTER">
+                  <Button fx:id="searchHistoryButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#onActionSearchHistory" prefHeight="80.0" prefWidth="111.0" text="Search History" textAlignment="CENTER">
                      <font>
-                        <Font name="Nirmala UI" size="16.5" />
+                        <Font name="Nirmala UI Bold" size="11.0" />
                      </font>
+                     <stylesheets>
+                        <URL value="@../css/design/web_history.css" />
+                        <URL value="@../css/design/web_history.css" />
+                     </stylesheets>
                   </Button>
                </buttons>
             </ButtonBar>
             <ButtonBar prefHeight="80.0" prefWidth="121.0">
                <buttons>
-                  <Button fx:id="searchedTermsButton" alignment="CENTER" mnemonicParsing="false" onAction="#onActionSearchedTerms" prefHeight="80.0" prefWidth="111.0" text="Searched &#10;Terms" textAlignment="CENTER">
+                  <Button fx:id="searchedTermsButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#onActionSearchedTerms" prefHeight="80.0" prefWidth="111.0" text="Terms History" textAlignment="CENTER">
                      <font>
-                        <Font name="Nirmala UI" size="16.5" />
+                        <Font name="Nirmala UI Bold" size="11.0" />
                      </font>
                   </Button>
                </buttons>
