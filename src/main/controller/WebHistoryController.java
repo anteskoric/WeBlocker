@@ -139,7 +139,7 @@ public class WebHistoryController implements Initializable {
             currentStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/fxml/TermsHistory.fxml"))));
         } catch (IOException a) {
             //TODO into logs
-            System.err.println(a);
+            System.err.println(a.getMessage());
         }
     }
 
