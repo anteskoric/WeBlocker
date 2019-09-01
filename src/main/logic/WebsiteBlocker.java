@@ -75,14 +75,14 @@ public final class WebsiteBlocker implements DataBaseConnector {
     private static void checkWebsiteUsage(WebsiteVisitTracer tracer, long endTime) {
         String sqlStatement = "SELECT SUM(visit_duration) AS visits,\n" +
                 "       url\n" +
-                "  FROM visits\n" +
+                " FROM visits\n" +
                 " WHERE url = (\n" +
                 "                 SELECT id\n" +
-                "                   FROM urls\n" +
-                "                  WHERE url = " + tracer.getUrl() + "\n" +
+                "                  FROM urls\n" +
+                "                  WHERE url = '" + tracer.getUrl() + "'\n" +
                 "             )\n" +
                 "AND \n" +
-                "       visit_time BETWEEN " + DateManager.getMicrosecondsFromHours(tracer.getHours()) + " AND " + DateManager.getMicrosecondsFromSeconds(endTime) + "\n" +
+                "       visit_time BETWEEN " + DateManager.getMicrosecondsFromSeconds(tracer.getEntryCreation()) + " AND " + DateManager.getMicrosecondsFromSeconds(endTime)+ "\n" +
                 " GROUP BY url;\n";
 
         long averageDailyUsage = 0;
@@ -93,7 +93,7 @@ public final class WebsiteBlocker implements DataBaseConnector {
             }
         } catch (SQLException a) {
             //TODO make into logs
-            System.err.println(a.getErrorCode());
+            System.err.println(a.getMessage());
         }
         long allowedDailyUsageInMicroseconds = DateManager.getMicrosecondsFromHours(tracer.getHours());
         if (averageDailyUsage > allowedDailyUsageInMicroseconds)
