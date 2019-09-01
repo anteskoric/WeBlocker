@@ -61,20 +61,22 @@ public final class IOHosts {
 
     public static String getHostName(String url) {
         String hostName = null;
-        //TODO add regex "^https://.+\\.com.+"
         try {
             String wwwPattern = "^www\\..+\\.com$";
-            String protocolPattern = "^https://www\\..+\\.com.+";
+            String protocolPattern = "^https://www\\..+\\.com(.*)";
+            String protocolPatternTwo = "^https://.+\\.com(.*)";
             if (url.matches(wwwPattern)) {
                 hostName = new URL("https://" + url).getHost().substring(4);
             } else if (url.matches(protocolPattern)) {
                 hostName = new URL(url).getHost().substring(4);
+            }else if (url.matches(protocolPatternTwo)){
+                hostName = new URL(url).getHost();
             } else {
-                //TODO popup or into logs
+                //TODO make into logs
                 throw new IllegalArgumentException("Please use URL of the website");
             }
         } catch (IOException a) {
-            //TODO logs
+            //TODO make into logs
             System.err.println(a.getMessage());
         }
         return hostName;
@@ -92,12 +94,12 @@ public final class IOHosts {
         try {
             hostName = new URL("https://" + url).getHost();
         } catch (MalformedURLException a) {
-            //TODO change this into logs
+            //TODO make into logs
             System.err.println(a.getMessage());
         }
 
         if (!checkIfInTheFile(hostName))
-            //TODO change this into logs or popup
+            //TODO make into logs
             throw new IllegalArgumentException("The website is not blocked");
 
         saveInTempFile(tempFilePath, hostName);
@@ -118,7 +120,7 @@ public final class IOHosts {
                     .map(x -> x[1])
                     .collect(Collectors.toList());
         } catch (IOException a) {
-            //TODO change into logs
+            //TODO make into logs
             System.err.println(a.getMessage());
         }
         return List.of();
@@ -135,7 +137,7 @@ public final class IOHosts {
         try {
             Runtime.getRuntime().exec("icacls " + path + "/grant Users:F");
         } catch (IOException a) {
-            //TODO change into logs
+            //TODO make into logs
         }
     }
 
@@ -152,7 +154,8 @@ public final class IOHosts {
                     .parallel()
                     .anyMatch(x -> x.contains(url));
         } catch (IOException a) {
-            //TODO change into logs
+            //TODO make into logs4
+            System.err.println(a.getMessage());
         }
         return false;
     }
@@ -175,7 +178,7 @@ public final class IOHosts {
             }
             writer.flush();
         } catch (IOException a) {
-            //TODO change into logs
+            //TODO make into logs
             System.err.println(a.getMessage());
         }
     }
@@ -202,10 +205,10 @@ public final class IOHosts {
                 writer.write(currentLine);
             }
             writer.flush();
-            //TODO remove the code below
         } catch (IOException a) {
-            //TODO change into logs
+            //TODO make into logs
             System.out.println(a.toString());
+            //TODO remove the code below
             StackTraceElement[] stackTraceElements = a.getStackTrace();
             Arrays.stream(stackTraceElements).forEach(System.out::println);
         }
@@ -226,7 +229,7 @@ public final class IOHosts {
         }
 
         if (checkIfInTheFile(hostName)) {
-            //TODO make into popup or into logs
+            //TODO make into logs
             throw new URLAlreadyExistingException("The URL is already blocked");
         }
 
@@ -235,7 +238,7 @@ public final class IOHosts {
             writer.write("0.0.0.0 " + "www." + hostName + " " + hostName);
             writer.flush();
         } catch (IOException a) {
-            //TODO change this into logs
+            //TODO make into logs
             System.err.println(a.getMessage());
         }
     }
@@ -252,7 +255,7 @@ public final class IOHosts {
         String protocolPattern = "^https://www\\..+\\.com(.*)";
         String easyProtocolPattern = "^https://.+\\.com(.*)";
         if (!url.matches(protocolPattern) && !url.matches(easyProtocolPattern)) {
-            //TODO popup or into logs
+            //TODO make into logs
             throw new IllegalArgumentException("Please use URL of the website");
         }
     }
