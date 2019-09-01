@@ -1,0 +1,27 @@
+#webHistoryVBox{
+    -fx-background-color: rgba(140, 140, 140, 0.51);
+}
+
+/*
+Icon made by Freepik from www.flaticon.com
+ */
+#searchHistoryButton{
+    -fx-background-color: #D1D1D1 ;
+    -fx-background-image: url("/images/http.png");
+    -fx-background-size: 55px 55px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50% 20%;
+    -fx-border-color: rgba(88, 90, 93, 0.32);
+}
+
+/*
+Icon made by Freepik from www.flaticon.com
+ */
+#searchedTermsButton{
+    -fx-background-color: #D1D1D1 ;
+    -fx-background-image: url("/images/search.png");
+    -fx-background-size: 55px 55px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50% 20%;
+    -fx-border-color: rgba(88, 90, 93, 0.32);
+}
