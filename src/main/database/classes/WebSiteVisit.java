@@ -46,7 +46,7 @@ public class WebSiteVisit {
      */
     private String title;
 
-    public WebSiteVisit(String title, long visitDuration, String hoursMinutes) {
+    public WebSiteVisit(String title, Long visitDuration, String hoursMinutes) {
         this.title = title;
         this.visitDuration = visitDuration;
         this.hoursMinutes = hoursMinutes;
