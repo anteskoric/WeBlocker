@@ -24,6 +24,7 @@ package controller;
 
 import database.classes.Url;
 import exceptions.SelectedColumnIsEmptyException;
+import interfaces.ControllerAlerts;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,6 +37,7 @@ import logic.HistoryDataExtractor;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 
 /**
@@ -44,9 +46,8 @@ import java.util.ResourceBundle;
  * @author Ante Skoric
  */
 
-public class WebHistoryController implements Initializable {
+public class WebHistoryController implements Initializable, ControllerAlerts {
 
-    //TODO make all javafx methods protected?
     /**
      * Search history button
      */
@@ -138,7 +139,7 @@ public class WebHistoryController implements Initializable {
             Stage currentStage = (Stage) this.elementsView.getScene().getWindow();
             currentStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/fxml/TermsHistory.fxml"))));
         } catch (IOException a) {
-            //TODO into logs
+            //TODO make into logs
             System.err.println(a.getMessage());
         }
     }
@@ -149,12 +150,13 @@ public class WebHistoryController implements Initializable {
      * @throws SelectedColumnIsEmptyException if selected row is empty throws the exception
      */
     @FXML
-    public void onActionTableView() {
-        isColumnNull();
-        HistoryDataExtractor.deleteSearchHistory(elementsView.getSelectionModel().getSelectedItem().getId(),
-                elementsView.getSelectionModel().getSelectedItem().getUrl(),
-                elementsView.getSelectionModel().getSelectedItem().getTitle());
-
+    protected void onActionTableView() {
+        //TODO column is null, when you click creation date or other columns that describe the rows
+        if(!ControllerAlerts.isColumnNull(this.elementsView)) {
+            HistoryDataExtractor.deleteSearchHistory(elementsView.getSelectionModel().getSelectedItem().getId(),
+                    elementsView.getSelectionModel().getSelectedItem().getUrl(),
+                    elementsView.getSelectionModel().getSelectedItem().getTitle());
+        }
         addElementsIntoTableView();
     }
 
@@ -162,7 +164,7 @@ public class WebHistoryController implements Initializable {
      * Initializes the table view to search history and adds elements into it
      */
     @FXML
-    public void onActionSearchHistory() {
+    protected void onActionSearchHistory() {
         initializeSearchHistory();
         addElementsIntoTableView();
     }
@@ -173,7 +175,7 @@ public class WebHistoryController implements Initializable {
      * At the end the TableView will be updated
      */
     @FXML
-    public void onActionDeleteAll() {
+    protected void onActionDeleteAll() {
         Alert deleteConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
         deleteConfirmation.setContentText("Are you sure that you want to delete all rows?");
         deleteConfirmation.showAndWait().filter(response -> response == ButtonType.OK)
@@ -181,13 +183,4 @@ public class WebHistoryController implements Initializable {
         addElementsIntoTableView();
     }
 
-    /**
-     * Check if the selected row is empty
-     *
-     * @throws SelectedColumnIsEmptyException if empty
-     */
-    private void isColumnNull() {
-        if (elementsView.getSelectionModel().isEmpty())
-            throw new SelectedColumnIsEmptyException("The chosen row is empty");
-    }
 }

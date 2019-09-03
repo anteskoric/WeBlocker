@@ -24,6 +24,7 @@ package controller;
 
 import database.classes.Cookie;
 import exceptions.SelectedColumnIsEmptyException;
+import interfaces.ControllerAlerts;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -40,7 +41,7 @@ import java.util.ResourceBundle;
  *
  * @author Ante Skoric
  */
-public class CookiesController implements Initializable {
+public class CookiesController implements Initializable, ControllerAlerts {
 
     /**
      * The delete all button
@@ -131,9 +132,10 @@ public class CookiesController implements Initializable {
      * @throws SelectedColumnIsEmptyException if selected row is empty throws the exception
      */
     @FXML
-    public void onActionTableView() {
-        isColumnNull();
-        CookiesDataExtractor.deleteCookie(cookiesTable.getSelectionModel().getSelectedItem().getCreationUtc(), cookiesTable.getSelectionModel().getSelectedItem().getName(), cookiesTable.getSelectionModel().getSelectedItem().getHostKey());
+    protected void onActionTableView() {
+        //TODO column is null, when you click creation date or other columns that describe the rows
+        if(!ControllerAlerts.isColumnNull(cookiesTable))
+            CookiesDataExtractor.deleteCookie(cookiesTable.getSelectionModel().getSelectedItem().getCreationUtc(), cookiesTable.getSelectionModel().getSelectedItem().getName(), cookiesTable.getSelectionModel().getSelectedItem().getHostKey());
         addElementsIntoTableView();
     }
 
@@ -143,21 +145,11 @@ public class CookiesController implements Initializable {
      * At the end the TableView will be updated
      */
     @FXML
-    public void onActionDeleteAll() {
+    protected void onActionDeleteAll() {
         Alert deleteConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
         deleteConfirmation.setContentText("Are you sure that you want to delete all rows?");
         deleteConfirmation.showAndWait().filter(response -> response == ButtonType.OK)
                 .ifPresent(response -> CookiesDataExtractor.deleteAllCookies());
         addElementsIntoTableView();
-    }
-
-    /**
-     * Check if the selected row is empty
-     *
-     * @throws SelectedColumnIsEmptyException if empty
-     */
-    private void isColumnNull() {
-        if (cookiesTable.getSelectionModel().isEmpty())
-            throw new SelectedColumnIsEmptyException("The selected row is empty");
     }
 }

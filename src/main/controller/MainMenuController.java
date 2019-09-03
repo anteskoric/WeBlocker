@@ -35,7 +35,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.HistoryDataExtractor;
-import logic.WebsiteBlocker;
 
 import java.io.IOException;
 import java.net.URL;
@@ -135,7 +134,7 @@ public class MainMenuController implements Initializable {
      * The method will be called when the button WebsiteUsage is clicked
      */
     @FXML
-    public void onActionWebsiteHistory() {
+    protected void onActionWebsiteHistory() {
         changeStage("/fxml/WebHistory.fxml", "Web history");
     }
 
@@ -143,7 +142,7 @@ public class MainMenuController implements Initializable {
      * The method will be called when the button BlockWebsite is clicked
      */
     @FXML
-    public void onActionBlockWebsite() {
+    protected void onActionBlockWebsite() {
         changeStage("/fxml/BlockWebSite.fxml", "Block Website");
     }
 
@@ -151,7 +150,7 @@ public class MainMenuController implements Initializable {
      * The method will be called when the button BlockedAndUnblock is clicked
      */
     @FXML
-    public void onActionBlockedAndUnblock() {
+    protected void onActionBlockedAndUnblock() {
         changeStage("/fxml/BlockedAndUnblock.fxml", "Blocked And Unblocked");
     }
 
@@ -159,7 +158,7 @@ public class MainMenuController implements Initializable {
      * The method will be called when the button Cookies is clicked
      */
     @FXML
-    public void onActionCookies() {
+    protected void onActionCookies() {
         changeStage("/fxml/Cookies.fxml", "Cookies");
     }
 
@@ -167,7 +166,7 @@ public class MainMenuController implements Initializable {
      * The method will be called when the button Contact is clicked
      */
     @FXML
-    public void onActionContact() {
+    protected void onActionContact() {
         changeStage("/fxml/Contact.fxml", "Contact");
     }
 

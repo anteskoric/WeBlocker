@@ -22,6 +22,7 @@ package controller;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import interfaces.ControllerAlerts;
 import logic.IOHosts;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,7 +39,7 @@ import java.util.ResourceBundle;
  * @author Ante Skoric
  */
 
-public class BlockedAndUnblockController implements Initializable {
+public class BlockedAndUnblockController implements Initializable, ControllerAlerts{
 
     /**
      * The blockedWebsites, is a ListView that shows all blocked websites
@@ -64,9 +65,15 @@ public class BlockedAndUnblockController implements Initializable {
      * The method calls IOHosts.unblockSite and unblocks the website that the user clicked on
      */
     @FXML
-    public void onActionBlockedWebsites() {
+    protected void onActionBlockedWebsites() {
         String tempFilePath = "C:\\Users\\agrok\\Desktop\\WeBlocker\\src\\main\\files\\tempFile.txt";
-        IOHosts.unblockSite(blockedWebsites.getSelectionModel().getSelectedItem(), tempFilePath);
+        if(!ControllerAlerts.isColumnNull(blockedWebsites)) {
+            try {
+                IOHosts.unblockSite(blockedWebsites.getSelectionModel().getSelectedItem(), tempFilePath);
+            } catch (IllegalArgumentException a) {
+                ControllerAlerts.setAlert("Website not blocked", "The website is not blocked");
+            }
+        }
         addElementsIntoListView();
     }
 

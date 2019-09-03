@@ -22,10 +22,8 @@ package controller;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import exceptions.ElementsNotSelectedException;
-import exceptions.TextFieldDoesNotContainCharactersException;
-import exceptions.ElementsCollisionException;
-import logic.IOHosts;
+import exceptions.URLAlreadyExistingException;
+import interfaces.ControllerAlerts;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -33,6 +31,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import logic.IOHosts;
 import logic.IOJson;
 
 import java.net.URL;
@@ -43,9 +42,9 @@ import java.util.ResourceBundle;
  *
  * @author Ante Skoric
  */
-public class BlockWebSiteController implements Initializable {
+public class BlockWebSiteController implements Initializable, ControllerAlerts {
 
-    //TODO block website (manually, with hours)
+    //TODO test block website manually
 
     /**
      * CheckBox for immediate website blockage
@@ -119,7 +118,7 @@ public class BlockWebSiteController implements Initializable {
      * The method will be called if the user clicks on the button submit
      */
     @FXML
-    public void onActionSubmit() {
+    protected void onActionSubmit() {
         verifySubmitClick();
         if (this.immediatelyCheckBox.isSelected())
             blockWebSiteImmediately();
@@ -131,7 +130,15 @@ public class BlockWebSiteController implements Initializable {
      * Blocks the website immediately
      */
     private void blockWebSiteImmediately() {
-        IOHosts.writeIntoHost(IOHosts.getHostName(getTextUrlField()));
+        try{
+            IOHosts.writeIntoHost(IOHosts.getHostName(getTextUrlField()));
+        }catch (URLAlreadyExistingException a){
+            ControllerAlerts.setAlert("URL Already Exists","The URL is already blocked");
+        }catch (NullPointerException a){
+            ControllerAlerts.setAlert("False input", "False URL input");
+        }catch (IllegalArgumentException a){
+            ControllerAlerts.setAlert("False URL","Please use URL of the website");
+        }
     }
 
     /**
@@ -142,27 +149,39 @@ public class BlockWebSiteController implements Initializable {
         try {
             hoursInt = Long.parseLong(getTextManuallyField());
         } catch (NumberFormatException e) {
+            //TODO into logs
             System.err.println(e.getMessage());
+            return;
         }
-        IOHosts.checkUsersUrlInput(getTextUrlField());
-        IOJson.saveManualData(getTextUrlField(), hoursInt);
+
+        try {
+            IOHosts.checkUsersUrlInput(getTextUrlField());
+        }catch (IllegalArgumentException a){
+            ControllerAlerts.setAlert("False URL","Please use the URL of a website");
+            return;
+        }
+
+        try {
+            IOJson.saveManualData(getTextUrlField(), hoursInt);
+        }catch (IllegalArgumentException a){
+            ControllerAlerts.setAlert("False input","The day contains 24 hours");
+        }
     }
 
     /**
      * Check if button immediately and textfield manually are used
-     * If both are used Exception will be thrown
      */
     private void verifySubmitClick() {
         if (!(urlFieldContainsCharacters()))
-            throw new TextFieldDoesNotContainCharactersException("The URL text field needs must contain website url");
+            ControllerAlerts.setAlert("Text filed does not contain text","The URL text field needs must contain website url.");
         if (this.immediatelyCheckBox.isSelected() && manuallyFieldContainsCharacters())
-            throw new ElementsCollisionException("You can only block a website manually or immediately");
+            ControllerAlerts.setAlert("Elements collision", "You can only block a website manually or immediately.");
         if (this.immediatelyCheckBox.isSelected() && manuallyFieldContainsCharacters() && urlFieldContainsCharacters())
-            throw new ElementsCollisionException("You can only block a website manually or immediately");
+            ControllerAlerts.setAlert("Elements collision","You can only block a website manually or immediately.");
         if (!(this.immediatelyCheckBox.isSelected()) && !manuallyFieldContainsCharacters() && !urlFieldContainsCharacters())
-            throw new ElementsNotSelectedException("You need to select manuel or immediate button and type URL of the website you want to block");
+            ControllerAlerts.setAlert("Elements not selected","You need to select manuel or immediate button and type URL of the website you want to block.");
         if (urlFieldContainsCharacters() && !(this.immediatelyCheckBox.isSelected()) && !(manuallyFieldContainsCharacters()))
-            throw new ElementsNotSelectedException("You need to use manuel or immediate button to block the website");
+            ControllerAlerts.setAlert("Elements not selected", "You need to use manuel or immediate button to block the website.");
     }
 
     /**
