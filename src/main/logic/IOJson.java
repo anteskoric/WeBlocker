@@ -50,8 +50,9 @@ public final class IOJson {
      * Saves today's date as integer (Unix date timestamp), User's input (website URL) and User's input (average hours per day)
      *
      * @param url users URL input of the website that should be blocked
+     * @throws IllegalArgumentException if the user input is more then 24 hours
      */
-    public static void saveManualData(String url, long hours) {
+    public static void saveManualData(String url, long hours) throws IllegalArgumentException{
         Gson gson = new GsonBuilder().create();
         LocalDateTime currentTime = LocalDateTime.now(ZoneId.of("Europe/Berlin"));
 
