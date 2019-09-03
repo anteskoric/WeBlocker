@@ -7,8 +7,7 @@ WeBlocker is open source tool that allows the user to block and unblock blocked 
 track and delete cookies, web and terms history.
 
 ![Screenshot](AppScreenshot.png)
-#+html: <p align="center"><img src="https://gitlab.informatik.haw-hamburg.de/aco613/weblocker/blob/master/src/main/images/AppScreenshot.png" /></p>
-![alt text](https://gitlab.informatik.haw-hamburg.de/aco613/weblocker/blob/master/src/main/images/AppScreenshot.png)
+
 
 On the main menu of the app, top ten used websites are displayed in a pie diagram.
 This feature is only implemented for Google Chrome.
