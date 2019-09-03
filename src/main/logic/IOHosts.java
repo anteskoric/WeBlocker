@@ -1,4 +1,5 @@
 package logic;
+
 // The MIT License
 //
 //Copyright (c) 2010-2019 Google, Inc. http://angularjs.org
@@ -69,7 +70,7 @@ public final class IOHosts {
                 hostName = new URL("https://" + url).getHost().substring(4);
             } else if (url.matches(protocolPattern)) {
                 hostName = new URL(url).getHost().substring(4);
-            }else if (url.matches(protocolPatternTwo)){
+            } else if (url.matches(protocolPatternTwo)) {
                 hostName = new URL(url).getHost();
             } else {
                 //TODO make into logs
@@ -89,7 +90,7 @@ public final class IOHosts {
      * @param tempFilePath the temporal file that will be used for storing text
      * @throws IllegalArgumentException if the website is not blocked
      */
-    public static void unblockSite(String url, String tempFilePath) {
+    public static void unblockSite(String url, String tempFilePath) throws IllegalArgumentException{
         String hostName = null;
         try {
             hostName = new URL("https://" + url).getHost();
@@ -222,7 +223,7 @@ public final class IOHosts {
      * @throws URLAlreadyExistingException If the String is already written into the file the exception will be thrown
      */
 
-    public static void writeIntoHost(String hostName) {
+    public static void writeIntoHost(String hostName) throws URLAlreadyExistingException, NullPointerException{
         if (hostName == null) {
             //TODO make into logs
             throw new NullPointerException();
@@ -251,7 +252,7 @@ public final class IOHosts {
      * @param url users input
      * @throws IllegalArgumentException if users input doesnt match one of the regexs
      */
-    public static void checkUsersUrlInput(String url) {
+    public static void checkUsersUrlInput(String url) throws IllegalArgumentException{
         String protocolPattern = "^https://www\\..+\\.com(.*)";
         String easyProtocolPattern = "^https://.+\\.com(.*)";
         if (!url.matches(protocolPattern) && !url.matches(easyProtocolPattern)) {
