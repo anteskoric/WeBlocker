@@ -1,6 +1,6 @@
 ## Summer project 2019 - WeBlocker
 
-##**`Author: Ante Skoric`**
+**`Author: Ante Skoric`**
 
 
 WeBlocker is open source tool that allows the user to block and unblock blocked websites,
