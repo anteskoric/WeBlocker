@@ -31,6 +31,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -56,6 +58,12 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     private PieChart topTenSitesChart;
+
+    /**
+     * Shows the website usage in percentage
+     */
+    @FXML
+    private Label usageLabel;
 
     /**
      * The websiteUsage button
@@ -98,20 +106,31 @@ public class MainMenuController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setTopTenVisitedSites();
+        getUsageDisplay();
         checkWebsiteBlockage();
+    }
+
+    /**
+     * Displays the web site usage in percentage after mouse is moved on the pie chart node
+     */
+    private void getUsageDisplay() {
+        for (final PieChart.Data data : topTenSitesChart.getData()) {
+            data.getNode().addEventHandler(MouseEvent.MOUSE_MOVED,
+                    e -> usageLabel.setText("Usage: " + data.getPieValue() + "%"));
+        }
     }
 
     /**
      * Set the values of the pie chart
      */
-    //TODO display hours and minutes
+
     private void setTopTenVisitedSites() {
         ObservableList<PieChart.Data> pieData = FXCollections.observableList(new ArrayList<>());
-
         List<WebSiteVisit> websites = HistoryDataExtractor.selectTopTenWebsites();
         long totalTime = getTotalVisitTime(websites);
         for (WebSiteVisit website : websites) {
             pieData.add(new PieChart.Data(website.getTitle(), (website.getVisitDuration() * 100) / totalTime));
+            //DateManager.setHoursMinutes(resultSet
         }
         topTenSitesChart.setData(pieData);
     }
