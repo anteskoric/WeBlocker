@@ -34,8 +34,6 @@ import javafx.scene.control.TableView;
 
 public interface ControllerAlerts {
 
-    //TODO duplicate code
-
     /**
      * Check if the selected row is empty
      * @param tableView TableView of the class
@@ -43,11 +41,7 @@ public interface ControllerAlerts {
      */
     static boolean isColumnNull(TableView tableView) {
         if (tableView.getSelectionModel().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Empty Column");
-            alert.setContentText("The selected column is empty");
-            alert.setHeaderText(null);
-            alert.showAndWait();
+            showAlert();
             return true;
         }else {
             return false;
@@ -61,11 +55,7 @@ public interface ControllerAlerts {
      */
     static boolean isColumnNull(ListView listView) {
         if (listView.getSelectionModel().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Empty Column");
-            alert.setContentText("The selected column is empty");
-            alert.setHeaderText(null);
-            alert.showAndWait();
+            showAlert();
             return true;
         }else {
             return false;
@@ -81,6 +71,17 @@ public interface ControllerAlerts {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titleText);
         alert.setContentText(contentText);
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
+
+    /**
+     * Displays Alert that informs that the column is empty
+     */
+    private static void showAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Empty Column");
+        alert.setContentText("The selected column is empty");
         alert.setHeaderText(null);
         alert.showAndWait();
     }
