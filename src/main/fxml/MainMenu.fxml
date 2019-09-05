@@ -11,6 +11,7 @@
 
 <AnchorPane prefHeight="450.0" prefWidth="800.0" stylesheets="@../css/design/main_menu.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
     <children>
+      <Label text="Label" />
         <VBox fx:id="buttonVBox" prefHeight="450.0" prefWidth="149.0">
             <children>
                 <ButtonBar prefHeight="90.0" prefWidth="149.0">
@@ -68,6 +69,11 @@
                         <Font name="Nirmala UI" size="16.0" />
                     </font>
                 </Label>
+            <Label fx:id="usageLabel" layoutX="14.0" layoutY="152.0" prefHeight="44.0" prefWidth="114.0">
+               <font>
+                  <Font name="Calibri" size="15.0" />
+               </font>
+            </Label>
             </children>
         </Pane>
     </children>
