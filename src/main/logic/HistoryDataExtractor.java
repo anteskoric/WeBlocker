@@ -119,8 +119,7 @@ public final class HistoryDataExtractor implements DataBaseConnector {
             while (resultSet.next()) {
                 String title = resultSet.getString("title");
                 long visitDuration = resultSet.getLong("visit_duration");
-                String hoursMinutes = DateManager.setHoursMinutes(resultSet.getLong("visit_duration"));
-                websites.add(new WebSiteVisit(title, visitDuration, hoursMinutes));
+                websites.add(new WebSiteVisit(title, visitDuration));
             }
         } catch (SQLException a) {
             //TODO make into logs

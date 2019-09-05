@@ -37,19 +37,13 @@ public class WebSiteVisit {
     private Long visitDuration;
 
     /**
-     * The duration of all visits to the website in the form of a string
-     */
-    private String hoursMinutes;
-
-    /**
      * Title of the website
      */
     private String title;
 
-    public WebSiteVisit(String title, Long visitDuration, String hoursMinutes) {
+    public WebSiteVisit(String title, Long visitDuration) {
         this.title = title;
         this.visitDuration = visitDuration;
-        this.hoursMinutes = hoursMinutes;
     }
 
     /**
@@ -63,10 +57,6 @@ public class WebSiteVisit {
         return title;
     }
 
-    public String getHoursMinutes() {
-        return hoursMinutes;
-    }
-
     /**
      * Setter methods
      */
@@ -76,10 +66,6 @@ public class WebSiteVisit {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public void setHoursMinutes(String hoursMinutes) {
-        this.hoursMinutes = hoursMinutes;
     }
 
     /**
@@ -92,7 +78,6 @@ public class WebSiteVisit {
         if (!(o instanceof WebSiteVisit)) return false;
         WebSiteVisit that = (WebSiteVisit) o;
         return Objects.equals(visitDuration, that.visitDuration) &&
-                Objects.equals(hoursMinutes, that.hoursMinutes) &&
                 Objects.equals(title, that.title);
     }
 
@@ -103,7 +88,7 @@ public class WebSiteVisit {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(visitDuration, title, hoursMinutes);
+        return Objects.hash(visitDuration, title);
     }
 
     /**
@@ -113,7 +98,6 @@ public class WebSiteVisit {
     public String toString() {
         return "WebSiteVisit{" +
                 "visitDuration=" + visitDuration +
-                ", hoursMinutes='" + hoursMinutes + '\'' +
                 ", title='" + title + '\'' +
                 '}';
     }
