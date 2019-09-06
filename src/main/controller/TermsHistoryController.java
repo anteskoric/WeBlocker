@@ -133,7 +133,7 @@ public class TermsHistoryController implements Initializable, ControllerAlerts {
     @FXML
     protected void onActionListView() {
         //TODO column is null, when you click creation date or other columns that describe the rows
-        if(ControllerAlerts.isColumnNull(termsListView))
+        if(!ControllerAlerts.isColumnNull(termsListView))
             HistoryDataExtractor.deleteSearchedTerms(termsListView.getSelectionModel().getSelectedItem().getKeywordID(), termsListView.getSelectionModel().getSelectedItem().getUrlId(), termsListView.getSelectionModel().getSelectedItem().getTerm());
         addTerms();
     }
