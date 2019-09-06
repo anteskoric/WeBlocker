@@ -41,7 +41,7 @@ public interface ControllerAlerts {
      */
     static boolean isColumnNull(TableView tableView) {
         if (tableView.getSelectionModel().isEmpty()) {
-            showAlert();
+            emptyColumnAlert();
             return true;
         }else {
             return false;
@@ -55,7 +55,7 @@ public interface ControllerAlerts {
      */
     static boolean isColumnNull(ListView listView) {
         if (listView.getSelectionModel().isEmpty()) {
-            showAlert();
+            emptyColumnAlert();
             return true;
         }else {
             return false;
@@ -78,11 +78,7 @@ public interface ControllerAlerts {
     /**
      * Displays Alert that informs that the column is empty
      */
-    private static void showAlert() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Empty Column");
-        alert.setContentText("The selected column is empty");
-        alert.setHeaderText(null);
-        alert.showAndWait();
+    private static void emptyColumnAlert() {
+        setAlert("Empty Column", "The selected column is empty");
     }
 }
