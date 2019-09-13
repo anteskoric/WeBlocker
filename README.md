@@ -3,7 +3,7 @@
 **`Author: Ante Skoric`**
 
 
-WeBlocker is open source tool that allows the user to block and unblock blocked websites,
+WeBlocker is open source tool that allows the user to block and unblock websites,
 track and delete cookies,as well as web and terms history.
 
 ![Screenshot](AppScreenshot.png)
